@@ -1,52 +1,52 @@
 # ============================================================================
 #  Mana Pet Shop — Panel de administración
-#  https://<tu-dominio>/admin
+#  https://manapets.github.io/admin
 #
 #  Este archivo define QUÉ se puede editar desde el panel y DÓNDE se guarda.
 #  Cada vez que guardás un cambio, el panel hace un "commit" al repositorio de
-#  GitHub y el sitio se vuelve a publicar solo (Netlify tarda ~40 segundos).
+#  GitHub y el sitio se vuelve a publicar solo (GitHub Actions, ~1 minuto).
 #
-#  Compatible con Sveltia CMS (el que carga public/admin/index.html) y con
-#  Decap CMS. No hace falta tocar nada de acá para el uso diario.
+#  Motor: Sveltia CMS (sucesor mantenido de Netlify/Decap CMS).
+#  Login: Personal Access Token de GitHub. Sin OAuth App, sin client_secret,
+#  sin proxy y sin ningún servidor extra.
 # ============================================================================
 
 backend:
-  # ------------------------------------------------------------------
-  #  AUTENTICACIÓN
-  #
-  #  Decap CMS con backend "github" NO puede hacer el login solo desde el
-  #  navegador: GitHub exige el client_secret para canjear el código OAuth,
-  #  y un secret no puede viajar en un archivo público del sitio.
-  #
-  #  Por eso el panel delega el login a un PROXY que tiene el secret:
-  #    - Netlify Identity  -> base_url: https://api.netlify.com  (auth_endpoint: auth)
-  #    - Proxy propio       -> base_url: https://<tu-proxy>       (auth_endpoint: auth)
-  #
-  #  El proxy se abre en una ventana emergente y devuelve el token por
-  #  postMessage. Si base_url/auth_endpoint faltan, Decap usa Netlify
-  #  Identity: eso sólo funciona si el sitio está desplegado en Netlify.
-  #
-  #  ⚠️  NO pongas acá la URL de authorize de GitHub como auth_endpoint:
-  #      Decap la concatena como si fuera un path y arma una URL inválida.
-  # ------------------------------------------------------------------
   name: github
   repo: manapets/manapets.github.io
   branch: main
 
-  # Proxy OAuth propio (proxy/server.mjs). Corre en tu servidor y es el único
-  # que tiene el client_secret.
-  # La Redirect URI de la OAuth App de GitHub tiene que ser:
-  #     <base_url>/auth/callback
-  base_url: https://proxy.webbot.ar
-  auth_endpoint: auth
-
-  # --- Si preferís que el proxy se sirva en el host que ya tenés ---
-  # (routing por path en el túnel: /auth/* -> localhost:8082)
-  # base_url: https://mamapetshop.webbot.ar
+  # ------------------------------------------------------------------
+  #  AUTENTICACIÓN POR TOKEN
+  #
+  #  El panel muestra el botón "Sign In with Token": generás un Personal
+  #  Access Token en GitHub y lo pegás. El token queda en el localStorage
+  #  del navegador y se usa para hablar con la API de GitHub.
+  #
+  #  Eso evita por completo el flujo OAuth: GitHub exige el client_secret
+  #  para canjear el código por un token, y eso obliga a tener un servidor
+  #  extra (proxy) — que es lo que ninguna tienda necesita.
+  #
+  #  El token necesita:
+  #    - alcance al repo manapets/manapets.github.io
+  #    - permiso "Contents: Read and write" (si usás Editorial Workflow,
+  #      también "Pull requests: Read and write")
+  #    - un token clásico con el scope "repo" también sirve
+  #
+  #  ⚠️  Si algún día querés el login con "Sign In with GitHub" (OAuth),
+  #     sacá esta línea y sumá base_url + auth_endpoint apuntando a un
+  #     cliente OAuth (Sveltia CMS Authenticator, Netlify, etc.).
+  # ------------------------------------------------------------------
+  auth_methods: [token]
 
 # Publish mode: "simple" guarda y publica directo. "editorial_workflow" crea
 # borradores que hay que aprobar antes de publicar. Descomentá si lo querés:
 # publish_mode: editorial_workflow
+
+# Los campos opcionales que quedan vacíos NO se escriben en el JSON.
+# Es lo que espera el schema Zod del sitio (src/lib/product-schema.ts).
+output:
+  omit_empty_optional_fields: true
 
 # ---------------------------------------------------------------------------
 #  Imágenes

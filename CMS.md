@@ -35,21 +35,21 @@ como `Nuevo`.
 
 ## 2. Puesta en marcha (una sola vez)
 
-El panel es un CMS *git-based* sobre **Decap CMS**: cada guardado hace un commit
-al repo y GitHub Actions vuelve a publicar el sitio.
-
-Hay dos partes:
+El panel es un CMS *git-based* sobre **[Sveltia CMS](https://sveltiacms.app)**: cada
+guardado hace un commit al repo y GitHub Actions vuelve a publicar el sitio.
 
 | Parte | Dónde vive | Qué es |
 |---|---|---|
 | El panel | `public/admin/` (estático, va a GitHub Pages) | La interfaz de edición |
-| El proxy OAuth | `proxy/server.mjs` (Node, en tu servidor) | Canjea el código de GitHub por un token |
+| El login | Tu Personal Access Token de GitHub | La credencial que abre el panel |
 
-> **¿Por qué hace falta el proxy?** GitHub exige el `client_secret` para canjear
-> el código OAuth por un token, y un secret no puede estar en un archivo
-> público del sitio. Decap resuelve esto delegando el login a un proxy que vive
-> en un servidor. (Netlify Identity hace lo mismo por vos, pero el sitio
-> está en GitHub Pages, así que lo corrés vos.)
+> **No hace falta ninguna OAuth App, ni `client_secret`, ni proxy, ni servidor extra.**
+> El panel entra con un **Personal Access Token** de GitHub: lo pegás una vez en el
+> navegador y queda ahí. El token sólo lo usás vos, en tu navegador.
+>
+> ¿Por qué? GitHub exige el `client_secret` para canjear el código OAuth por un
+> token, y eso obliga a levantar un servidor (proxy). El login por token evita
+> ese paso: el token lo creás vos mismo en GitHub.
 
 ### Paso 1 — Publicar el sitio en GitHub Pages
 
@@ -65,93 +65,64 @@ El workflow `.github/workflows/deploy.yml` compila con Astro y publica en
 > Hay **dos** workflows iguales (`deploy.yml` y `static.yml`) que compiten por
 > el mismo deploy. Borra uno de los dos.
 
-### Paso 2 — Crear la OAuth App en GitHub
+### Paso 2 — Crear el Personal Access Token
 
-GitHub → **Settings** → **Developer settings** → **OAuth Apps** → **New OAuth App**:
+GitHub → **Settings** → **Developer settings** → **Personal access tokens** →
+**Fine-grained tokens** → **Generate new token**:
 
 | Campo | Valor |
 |---|---|
-| Application name | `ManáPets Admin` |
-| Homepage URL | `https://manapets.github.io` |
-| Authorization callback URL | `https://proxy.webbot.ar/auth/callback` |
+| Token name | `ManáPets Admin` |
+| Expiration | lo que prefieras (1 año está bien) |
+| Repository access | Only select repositories → `manapets/manapets.github.io` |
+| Contents | **Read and write** |
+| Pull requests | **Read and write** (sólo si vas a usar Editorial Workflow) |
 
-Anotá el **Client ID** y el **Client Secret**. El secret **nunca** va en el
-panel ni en el repo: sólo en `proxy/.env` en el servidor.
+Copiá el token. **Aparece una sola vez**: guardalo en el gestor de contraseñas.
 
-### Paso 3 — Levantar el proxy en tu servidor
+> Alternativa: un token clásico con el scope `repo` también sirve
+> (Settings → Developer settings → Personal access tokens → Tokens (classic)).
 
-```bash
-# 1. Subir el código (desde la carpeta del proyecto)
-./deploy.sh                       # sincroniza src/, public/, proxy/ al servidor
+### Paso 3 — Entrar al panel
 
-# 2. En el servidor: configurar
-cd ~/otra_tienda
-cp proxy/.env.example proxy/.env
-nano proxy/.env                   # completar CLIENT_ID, CLIENT_SECRET, BASE_URL, ALLOWED_ORIGINS
+1. Abrí `https://manapets.github.io/admin`
+2. Presioná **Sign In Using Access Token**
+3. Pegá el token y confirmá
 
-# 3. Levantar
-./proxy.sh start
-./proxy.sh check                  # prueba /health y /auth
-```
+El token queda guardado en el `localStorage` de tu navegador: la próxima vez
+entrás directo.
 
-`proxy/.env` queda fuera del repo (está en `.gitignore`).
+### Paso 4 — Dar acceso a otra persona (opcional)
 
-### Paso 4 — Exponer el proxy con HTTPS
+Cada persona que cargue productos necesita su propio token, y permiso de
+escritura sobre el repo:
 
-El proxy tiene que ser alcanzable desde internet por HTTPS (GitHub redirige
-ahí el callback). Con un túnel de Cloudflare:
+- GitHub → el repo → **Settings** → **Collaborators and teams** → **Add people**
+  → rol **Write** (o Maintain).
+- Esa persona crea su propio token (Paso 2) y entra con él.
 
-```yaml
-# config del túnel (cloudflared)
-ingress:
-  - hostname: proxy.webbot.ar
-    service: http://localhost:8082
-  - hostname: mamapetshop.webbot.ar
-    service: http://localhost:4321
-```
+---
 
-Creá el registro DNS `proxy.webbot.ar` apuntando al túnel.
+### Editar el contenido sin salir de GitHub
 
-> **Alternativa sin DNS nuevo:** servir el proxy en el host que ya tenés y
-> enrutar por path. En `public/admin/config.yml` poné
-> `base_url: https://mamapetshop.webbot.ar` y en el túnel:
-> ```yaml
->   - hostname: mamapetshop.webbot.ar
->     path: ^/auth(/.*)?$
->     service: http://localhost:8082
-> ```
+El panel tiene un botón **Work with Local Repository**: si lo usás, Sveltia abre
+un selector de carpeta y trabaja **directamente sobre tu carpeta local**, sin
+token y sin conexión. Útil para probar cambios antes de subirlos.
 
-### Paso 5 — Apuntar el panel al proxy
-
-En `public/admin/config.yml`:
-
-```yaml
-backend:
-  name: github
-  repo: manapets/manapets.github.io
-  branch: main
-  base_url: https://proxy.webbot.ar
-  auth_endpoint: auth
-```
-
-`base_url` tiene que ser **exactamente** el origen público del proxy, sin barra
-final. La Redirect URI de la OAuth App es `<base_url>/auth/callback`.
-
-Volvé a subir el sitio (`git push`) y probá en **modo incógnito**:
-`https://manapets.github.io/admin`.
+---
 
 ### Errores frecuentes
 
 | Síntoma | Causa |
 |---|---|
-| Pantalla en blanco, sin errores | El `<script>` de Decap está en el `<head>`. Va al final del `<body>`. |
+| Pantalla en blanco, sin errores | El `<script>` del CMS está en el `<head>`. Va al final del `<body>`. |
 | "Failed to load config.yml (404)" | Falta el `<link rel="cms-config-url">` con ruta **absoluta** (`/admin/config.yml`). |
-| El popup de login se abre en `api.netlify.com` | Falta `base_url` / `auth_endpoint` en el `backend`. |
-| El popup se abre en `https://api.github.com/https://github.com/...` | `auth_endpoint` no es un path, es una URL. Sólo `auth`. |
-| "Origen del panel no permitido" | `ALLOWED_ORIGINS` en `proxy/.env` no coincide con el origen del panel. |
-| 404 al volver de GitHub | La Redirect URI de la OAuth App no es `<base_url>/auth/callback`. |
+| El login pide un token pero no entra | El token no tiene permiso de escritura sobre el repo, o le falta el alcance `repo` / permiso **Contents: Read and write**. |
+| "Resource not accessible by personal access token" al publicar | Al token le falta el permiso **Pull requests: Read and write** (sólo con Editorial Workflow). |
+| No aparece el botón de guardar | El token es de sólo lectura. |
+| Aviso de Sveltia en la consola | No uses `type="module"` en el `<script>`: Sveltia no es un módulo ES. |
 
-### Paso 6 — Imágenes (opcional pero recomendado)
+### Paso 5 — Imágenes (opcional pero recomendado)
 
 Por defecto las fotos se guardan dentro del repositorio, en `public/images/uploads/`.
 Funciona, pero un catálogo grande infla el repositorio.
@@ -187,14 +158,15 @@ Los cambios tardan **~1 minuto** en verse (GitHub Actions reconstruye el sitio).
 
 ## 4. Detalles técnicos
 
-- **Motor:** [Decap CMS](https://decapcms.org) (`public/admin/index.html`), un panel
-  estático que se configura con `public/admin/config.yml` y se autentica contra el
-  backend `github`. El login delega el canje del secret en `proxy/server.mjs`.
-  Como alternativa existe [Sveltia CMS](https://sveltiacms.app), más moderno, pero
-  necesita el mismo proxy OAuth.
-- **El `<script>` de Decap va al final del `<body>`:** Decap hace auto-init al
-  evaluarse y necesita que `document.body` ya exista. En el `<head>` la
-  inicialización revienta y la página queda en blanco **sin errores en la consola**.
+- **Motor:** [Sveltia CMS](https://sveltiacms.app) (`public/admin/index.html`), un
+  panel estático que se configura con `public/admin/config.yml`. Es el sucesor
+  mantenido de Netlify/Decap CMS.
+- **Login:** `backend.auth_methods: [token]` → Personal Access Token de GitHub.
+  Sin OAuth App, sin `client_secret`, sin proxy y sin servidor extra.
+- **El `<script>` va al final del `<body>`:** el CMS hace auto-init al evaluarse y
+  necesita que `document.body` ya exista. En el `<head>` la inicialización
+  revienta y la página queda en blanco **sin errores en la consola**.
+- **Sin `type="module"`:** Sveltia no es un módulo ES y avisa por consola.
 - **Validación:** los productos se validan con Zod al compilar
   (`src/lib/product-schema.ts`) y los ajustes con `src/lib/store-schema.ts`
   (test en `src/lib/store-schema.test.ts`). Si algo queda mal, el build falla y el
@@ -203,6 +175,9 @@ Los cambios tardan **~1 minuto** en verse (GitHub Actions reconstruye el sitio).
   interpreta como «sin valor» antes de validar (`pruneEmpty` en `src/content.config.ts`).
 - **Rama:** `main`. Si preferís revisar los cambios antes de publicar, descomentá
   `publish_mode: editorial_workflow` en `public/admin/config.yml`.
+- **Campos vacíos:** `output.omit_empty_optional_fields: true` evita que se
+  escriban en el JSON los campos opcionales que quedaron vacíos (lo que espera el
+  schema Zod del sitio).
 - **Ruta del config:** `public/admin/index.html` declara
   `<link href="/admin/config.yml" rel="cms-config-url">`. Es a propósito: así el panel
   encuentra el config aunque entres a `/admin` **sin** la barra final (si usara la ruta

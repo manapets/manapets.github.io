@@ -16,8 +16,5 @@ pnpm-debug.log*
 .env
 .env.production
 
-# proxy OAuth: el .env tiene el client_secret, nunca al repo
-proxy/.env
-
 # macOS
 .DS_Store

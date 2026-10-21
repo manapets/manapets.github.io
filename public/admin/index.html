@@ -27,15 +27,16 @@
 
   <body>
     <!--
-      IMPORTANTE: el script va AL FINAL del <body>, no en el <head>.
+      Sveltia CMS: sucesor mantenido de Netlify/Decap CMS.
 
-      Decap CMS hace auto-init en el momento en que se evalúa el bundle. Si el
-      <script> está en el <head>, todavía no existe document.body y la
-      inicialización revienta: la página queda en blanco con el texto
-      "Cargando administrador..." y SIN errores en la consola.
+      IMPORTANTE: el script va AL FINAL del <body> y SIN `type="module"`.
+      Sveltia hace auto-init al evaluarse y necesita que document.body ya exista;
+      si el <script> está en el <head> la página queda en blanco. Y Sveltia NO
+      es un módulo ES: con `type="module"` avisa por consola y se rompe.
 
-      Alternativa equivalente: dejarlo en el <head> con el atributo `defer`.
+      El login es por Personal Access Token de GitHub (backend.auth_methods:
+      [token]), así que no hace falta OAuth App, ni client_secret, ni proxy.
     -->
-    <script src="https://unpkg.com/decap-cms@^3.17.1/dist/decap-cms.js"></script>
+    <script src="https://unpkg.com/@sveltia/cms@0.250.1/dist/sveltia-cms.js"></script>
   </body>
 </html>

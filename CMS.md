@@ -67,18 +67,44 @@ El workflow `.github/workflows/deploy.yml` compila con Astro y publica en
 
 ### Paso 2 — Crear el Personal Access Token
 
+**Atajo:** en el panel, botón **Sign In Using Access Token** → en el diálogo que
+se abre hay un link *"GitHub user settings page"* que te lleva a GitHub con los
+permisos ya pre-seleccionados. Hacé clic ahí y seguí los pasos 2-3.
+
+**Link directo** (permisos ya puestos, vence en 1 año):
+
+```
+https://github.com/settings/personal-access-tokens/new?name=Manapets+Admin&description=Panel+de+administracion+de+la+tienda&expires_in=365&contents=write
+```
+
+**A mano**, si preferís no usar el link:
+
 GitHub → **Settings** → **Developer settings** → **Personal access tokens** →
 **Fine-grained tokens** → **Generate new token**:
 
 | Campo | Valor |
 |---|---|
+| Resource owner | `manapets` (tu cuenta) |
 | Token name | `ManáPets Admin` |
-| Expiration | lo que prefieras (1 año está bien) |
+| Expiration | 1 año |
 | Repository access | Only select repositories → `manapets/manapets.github.io` |
-| Contents | **Read and write** |
-| Pull requests | **Read and write** (sólo si vas a usar Editorial Workflow) |
+| Repository permissions → **Contents** | **Read and write** |
+| Repository permissions → **Pull requests** | Read and write (sólo si vas a usar Editorial Workflow) |
 
 Copiá el token. **Aparece una sola vez**: guardalo en el gestor de contraseñas.
+
+> **Importante:** el token es de **tu usuario de GitHub** (el que es dueño o
+> colaborador con escritura del repo `manapets/manapets.github.io`). Si no tenés
+> rol Write ahí, el token no va a poder guardar nada.
+
+**Verificar el token antes de pegarlo** (opcional pero recomendado):
+
+```bash
+npm run token -- ghp_XXXXXXXXXXXXXXXX
+```
+
+El script consulta la API de GitHub y te dice si el token sirve y, si no,
+**qué permiso falta**. Sólo hace `GET`: no escribe ni modifica nada.
 
 > Alternativa: un token clásico con el scope `repo` también sirve
 > (Settings → Developer settings → Personal access tokens → Tokens (classic)).
@@ -91,6 +117,9 @@ Copiá el token. **Aparece una sola vez**: guardalo en el gestor de contraseñas
 
 El token queda guardado en el `localStorage` de tu navegador: la próxima vez
 entrás directo.
+
+> Si pegás un token viejo o revocado, el panel puede quedarse cargando:
+> cerrá la pestaña, borrá el `localStorage` del sitio y entrá de nuevo.
 
 ### Paso 4 — Dar acceso a otra persona (opcional)
 

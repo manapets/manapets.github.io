@@ -11,6 +11,7 @@
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
+    "token": "node scripts/check-token.mjs",
     "placeholders": "node scripts/gen-placeholders.mjs"
   },
   "dependencies": {

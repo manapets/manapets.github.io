@@ -1,41 +1,12 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Panel · Mana Pet Shop</title>
-    <link rel="icon" href="/images/logo-mana-pet-shop.svg" />
-    <!--
-      Ruta ABSOLUTA del config. Sin esto, el panel resuelve "config.yml" de forma
-      relativa a la URL: entrando a /admin (sin la barra final) la buscaba en
-      /config.yml y daba "Failed to load config.yml (404)".
-    -->
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
-    <style>
-      /* Evita el parpadeo blanco mientras carga el panel. */
-      html,
-      body {
-        margin: 0;
-        min-height: 100%;
-        background: #ffffff;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager - ManáPets</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
   <body>
-    <!--
-      Decap CMS: panel de administración gratuito y sin servidor propio.
-      Lee su configuración desde public/admin/config.yml.
-
-      Autenticación: Netlify Identity + Git Gateway (ver CMS.md, paso 3).
-      No hace falta ninguna clave acá.
-
-      Alternativa: Sveltia CMS es una reescritura más moderna, pero NO soporta
-      el backend "git-gateway": requiere el backend "github" y un proxy OAuth.
-      Si algún día migrás a esa variante, reemplazá el script de abajo por:
-        <script src="https://unpkg.com/@sveltia/cms@0.248.1/dist/sveltia-cms.js" type="module"></script>
-      y descomentá el bloque "media_libraries" de config.yml.
-    -->
-    <script src="https://unpkg.com/decap-cms@^3.17.1/dist/decap-cms.js"></script>
+    <!-- Decap CMS se inicializa solo leyendo config.yml -->
   </body>
 </html>

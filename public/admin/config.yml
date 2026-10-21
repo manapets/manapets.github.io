@@ -1,288 +1,53 @@
-# ============================================================================
-#  Mana Pet Shop — Panel de administración
-#  https://<tu-dominio>/admin
-#
-#  Este archivo define QUÉ se puede editar desde el panel y DÓNDE se guarda.
-#  Cada vez que guardás un cambio, el panel hace un "commit" al repositorio de
-#  GitHub y el sitio se vuelve a publicar solo (Netlify tarda ~40 segundos).
-#
-#  Compatible con Sveltia CMS (el que carga public/admin/index.html) y con
-#  Decap CMS. No hace falta tocar nada de acá para el uso diario.
-# ============================================================================
-
 backend:
-  # Login con la cuenta de GitHub (vía el proveedor OAuth de Netlify).
-  # Requiere que cada editor tenga una cuenta de GitHub con permiso de escritura
-  # sobre el repositorio. NO usa Netlify Identity ni Git Gateway (deprecado).
   name: github
-  repo: webbotar/mamapetshop
+  repo: manapets/manapets.github.io
   branch: main
+  base_url: https://api.github.com
+  auth_endpoint: https://github.com/login/oauth/authorize
+  client_id: Ov23liVO71uESGzIm7zn
 
-# Publish mode: "simple" guarda y publica directo. "editorial_workflow" crea
-# borradores que hay que aprobar antes de publicar. Descomentá si lo querés:
-# publish_mode: editorial_workflow
+media_folder: "public/uploads"
+public_folder: "/uploads"
 
-# ---------------------------------------------------------------------------
-#  Imágenes
-#
-#  POR DEFECTO: las fotos se guardan en el repositorio, en
-#  public/images/uploads y el sitio las muestra desde /images/uploads/…
-#
-#  RECOMENDADO (Cloudinary, gratis): así las fotos NO inflan el repositorio y
-#  Cloudinary te las entrega optimizadas y livianas.
-#    1. Creá una cuenta gratis en https://cloudinary.com
-#    2. En el panel de Cloudinary copiá "Cloud name" y "API key"
-#    3. Descomentá los dos bloques de abajo y pegá tus datos
-#    4. Volvé a guardar este archivo (el cambio se publica solo)
-# ---------------------------------------------------------------------------
-media_folder: "/public/images/uploads"
-public_folder: "/images/uploads"
-
-# --- Cloudinary: pegá acá tus datos y descomentá el bloque (Decap CMS) ---
-# media_library:
-#   name: cloudinary
-#   config:
-#     cloud_name: TU_CLOUD_NAME
-#     api_key: TU_API_KEY
-
-# --- Cloudinary si algún día usás Sveltia CMS en lugar de Decap ---
-# media_libraries:
-#   cloudinary:
-#     config:
-#       cloud_name: TU_CLOUD_NAME
-#       api_key: TU_API_KEY
-
-# Idioma del panel. Sveltia usa el idioma del navegador automáticamente.
-# locale: es
-
-# ============================================================================
-#  PRODUCTOS
-# ============================================================================
 collections:
-  - name: products
-    label: Productos
-    label_singular: Producto
-    folder: src/content/products
+  - name: "productos"
+    label: "Productos"
+    folder: "src/content/productos"
     create: true
-    delete: true
-    extension: json
-    format: json
-    identifier_field: name
-    summary: "{{name}} · {{brand}} · ${{price}}"
-    sortable_fields: [name, price, brand, category]
-    view_filters:
-      - label: Destacados
-        field: featured
-        pattern: true
-      - label: Sin stock
-        field: inStock
-        pattern: false
-      - label: En liquidación
-        field: tags
-        pattern: liquidacion
+    slug: "{{slug }}"
+    extension: "json"
     fields:
-      - label: Nombre del producto
-        name: name
-        widget: string
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Slug (URL amigable)", name: "slug", widget: "string"}
+      - {label: "Categoría", name: "categoria", widget: "string"}
+      - {label: "Precio normal", name: "precio", widget: "number"}
+      - {label: "Precio de venta / promoción", name: "precio_venta", widget: "number"}
+      - {label: "¿Promoción activa?", name: "promocion", widget: "boolean"}
+      - {label: "Descripción", name: "descripcion", widget: "text"}
+      - {label: "Imagen", name: "imagen", widget: "image"}
+      - {label: "Stock", name: "stock", widget: "number"}
+      - {label: "Producto activo", name: "activo", widget: "boolean", default: true}
 
-      - label: Descripción corta
-        name: description
-        widget: text
-        hint: "Una o dos líneas. Se muestra en la tarjeta del catálogo."
-
-      - label: Descripción larga
-        name: longDescription
-        widget: text
-        required: false
-        hint: "Opcional. Se muestra en la página del producto. Podés usar listas con '-'."
-
-      - label: Precio
-        name: price
-        widget: number
-        value_type: int
-        min: 1
-        hint: "Número sin puntos ni símbolos. Ej: 25000"
-
-      - label: Precio anterior (para mostrar el % de descuento)
-        name: compareAtPrice
-        widget: number
-        value_type: int
-        min: 1
-        required: false
-        hint: "Opcional. Si lo cargás, la etiqueta '-15% OFF' se calcula sola. Tiene que ser MAYOR que el precio."
-
-      - label: Categoría
-        name: category
-        widget: string
-        default: General
-        hint: "Ej: Alimentos Secos, Alimentos Húmedos, Camas, Higiene, Piedras Sanitarias, Rascadores, Snacks"
-
-      - label: Marca
-        name: brand
-        widget: string
-        hint: "Ej: Royal Canin, Agility, Pro Plan, Eukanuba…"
-
-      - label: Especie
-        name: species
-        widget: select
-        options:
-          - { label: Perro, value: perro }
-          - { label: Gato, value: gato }
-          - { label: Perro y gato, value: ambos }
-
-      - label: Tipo de alimento
-        name: foodType
-        widget: select
-        required: false
-        options:
-          - { label: Seco, value: seco }
-          - { label: Húmedo, value: humido }
-        hint: "Dejalo vacío para accesorios, camas, higiene o snacks."
-
-      - label: Kilos de regalo
-        name: bonusKg
-        widget: number
-        value_type: int
-        min: 0
-        required: false
-        hint: "Opcional. Se muestra como 'KG de regalo'."
-
-      - label: Presentaciones / variantes
-        name: variants
-        widget: list
-        required: false
-        collapsed: true
-        label_singular: Presentación
-        summary: "{{fields.label}} · ${{fields.price}}"
-        hint: "Opcional. Usalo cuando el producto se vende en varios pesos (1kg, 3kg, 15kg…). Si tiene un solo precio, dejalo vacío."
-        fields:
-          - { label: Presentación, name: label, widget: string, hint: "Ej: 3kg, 15kg, x12" }
-          - { label: Precio, name: price, widget: number, value_type: int, min: 1 }
-          - { label: Precio anterior, name: compareAtPrice, widget: number, value_type: int, min: 1, required: false }
-          - { label: Stock (unidades), name: stock, widget: number, value_type: int, min: 0 }
-          - { label: Kilos de regalo, name: bonusKg, widget: number, value_type: int, min: 0, required: false }
-
-      - label: Imágenes (de 1 a 3)
-        name: images
-        widget: list
-        min: 1
-        max: 3
-        label_singular: Imagen
-        field: { label: Imagen, name: image, widget: image }
-        hint: "La primera es la que se ve en el catálogo."
-
-      - label: Destacado en la home
-        name: featured
-        widget: boolean
-        default: false
-
-      - label: Disponible
-        name: inStock
-        widget: boolean
-        default: true
-        hint: "Si lo apagás, el producto se muestra como 'Sin stock'."
-
-      - label: Stock (producto simple)
-        name: stock
-        widget: number
-        value_type: int
-        min: 0
-        required: false
-        hint: "Sólo si NO usás presentaciones/variantes."
-
-      - label: Etiqueta sobre la imagen
-        name: badge
-        widget: string
-        required: false
-        hint: 'Opcional. Ej: "Nuevo". Dejalo vacío si no querés etiqueta.'
-
-      - label: Colecciones / tags
-        name: tags
-        widget: select
-        multiple: true
-        required: false
-        options:
-          - { label: Top ventas, value: top-ventas }
-          - { label: Novedad, value: novedad }
-          - { label: Liquidación, value: liquidacion }
-        hint: "Definen si el producto aparece en las colecciones de la home."
-
-  # ==========================================================================
-  #  PREGUNTAS FRECUENTES
-  # ==========================================================================
-  - name: faqs
-    label: Preguntas frecuentes
-    label_singular: Pregunta
-    folder: src/content/faqs
+  - name: "categorias"
+    label: "Categorías"
+    folder: "src/content/categorias"
     create: true
-    delete: true
-    extension: json
-    format: json
-    identifier_field: id
-    summary: "{{question}}"
-    sortable_fields: [order, question]
+    slug: "{{slug }}"
+    extension: "json"
     fields:
-      - label: Identificador
-        name: id
-        widget: string
-        hint: "Sin espacios ni acentos. Define el enlace directo /#faq-IDENTIFICADOR. NO lo cambies en las preguntas existentes."
-      - label: Orden
-        name: order
-        widget: number
-        value_type: int
-        min: 0
-        default: 10
-        hint: "Número de posición. Menor = aparece más arriba."
-      - label: Pregunta
-        name: question
-        widget: string
-      - label: Respuesta
-        name: answer
-        widget: text
+      - {label: "Nombre", name: "title", widget: "string"}
+      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "Descripción", name: "descripcion", widget: "text"}
 
-  # ==========================================================================
-  #  AJUSTES DE LA TIENDA (archivo único)
-  # ==========================================================================
-  - name: settings
-    label: Ajustes de la tienda
-    files:
-      - name: store
-        label: Datos generales
-        file: src/content/settings/store.json
-        fields:
-          - { label: Nombre de la tienda, name: name, widget: string }
-          - { label: Frase corta, name: tagline, widget: string, hint: "Ej: El amor tiene cuatro patas" }
-          - { label: Descripción (SEO), name: description, widget: text }
-          - { label: Ciudad, name: city, widget: string, hint: "Aparece en 'Estás en …'" }
-          - { label: Dirección, name: address, widget: string }
-          - label: WhatsApp
-            name: whatsappPhone
-            widget: string
-            hint: "Código de país + área + número, SIN '+', espacios ni guiones. Ej: 5492615555555"
-          - label: Saludo del mensaje de WhatsApp
-            name: whatsappGreeting
-            widget: string
-            hint: "Usá {store} y el panel lo reemplaza por el nombre de la tienda."
-          - { label: Moneda, name: currency, widget: string, default: ARS, hint: "Código de 3 letras. Ej: ARS" }
-          - { label: Idioma de los precios, name: locale, widget: string, default: es-AR }
-          - { label: Email de contacto, name: email, widget: string, required: false, hint: "Vacío = se oculta." }
-          - { label: Instagram, name: instagram, widget: string, required: false, hint: "Vacío = se oculta." }
-          - { label: Facebook, name: facebook, widget: string, required: false, hint: "Vacío = se oculta." }
-          - { label: Nota de envío (carrito), name: shippingNote, widget: text }
-          - { label: Envío gratis desde (ARS), name: freeShippingGoal, widget: number, value_type: int, min: 0 }
-          - { label: Cuotas sin interés desde (ARS), name: installmentsGoal, widget: number, value_type: int, min: 0 }
-          - { label: Cantidad de cuotas, name: installmentsCount, widget: number, value_type: int, min: 1 }
-          - label: Reintegro para la próxima compra
-            name: reintegroRate
-            widget: number
-            value_type: float
-            step: 0.01
-            min: 0
-            hint: "En decimal. 0.05 = 5%"
-          - label: Códigos de descuento
-            name: discountCodes
-            widget: list
-            required: false
-            fields:
-              - { label: Código, name: code, widget: string, hint: "Ej: PLUSPET10 (se guarda en mayúsculas)" }
-              - { label: Descuento, name: rate, widget: number, value_type: float, step: 0.01, min: 0, hint: "En decimal. 0.1 = 10%" }
+  - name: "catalogos"
+    label: "Catálogos y Promociones"
+    folder: "src/content/catalogos"
+    create: true
+    slug: "{{slug }}"
+    extension: "json"
+    fields:
+      - {label: "Nombre del catálogo", name: "title", widget: "string"}
+      - {label: "Descuento %", name: "descuento", widget: "number"}
+      - {label: "Fecha inicio", name: "inicio", widget: "datetime"}
+      - {label: "Fecha fin", name: "fin", widget: "datetime"}
+      - {label: "Productos incluidos (slugs)", name: "productos", widget: "list", field: {label: "Slug del producto", name: "slug", widget: "string"}}

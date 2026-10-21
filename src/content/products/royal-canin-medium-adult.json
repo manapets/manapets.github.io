@@ -1,0 +1,49 @@
+{
+  "name": "Royal Canin Medium Adult",
+  "description": "Balanceado premium para perros adultos de talla mediana (11 a 25 kg).",
+  "longDescription": "Royal Canin Medium Adult. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Proteínas de alta digestibilidad\n- Refuerza las defensas naturales\n- Omega 3 y 6 para piel y pelaje\n- Con sulfato de condroitina para las articulaciones\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 38000,
+  "category": "Alimentos Secos",
+  "brand": "Royal Canin",
+  "species": "perro",
+  "foodType": "seco",
+  "images": [
+    "/images/products/royal-canin-medium-adult-1.svg",
+    "/images/products/royal-canin-medium-adult-2.svg",
+    "/images/products/royal-canin-medium-adult-3.svg"
+  ],
+  "featured": true,
+  "inStock": true,
+  "tags": [
+    "top-ventas"
+  ],
+  "compareAtPrice": 45000,
+  "bonusKg": 1,
+  "variants": [
+    {
+      "label": "1kg",
+      "price": 15000,
+      "stock": 20,
+      "compareAtPrice": 18000
+    },
+    {
+      "label": "3kg",
+      "price": 38000,
+      "stock": 3,
+      "compareAtPrice": 45000
+    },
+    {
+      "label": "7,5kg",
+      "price": 82000,
+      "stock": 40,
+      "compareAtPrice": 99000
+    },
+    {
+      "label": "15kg",
+      "price": 150000,
+      "stock": 0,
+      "compareAtPrice": 179000,
+      "bonusKg": 3
+    }
+  ]
+}

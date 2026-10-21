@@ -1,0 +1,20 @@
+{
+  "name": "Excellent Gato Adulto",
+  "description": "Alimento seco para gatos adultos, sabor pescado.",
+  "longDescription": "Excellent Gato Adulto. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Sabor pescado, muy aceptado\n- Con taurina y vitaminas\n- Control del peso\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 35000,
+  "category": "Alimentos Secos",
+  "brand": "Excellent",
+  "species": "gato",
+  "foodType": "seco",
+  "images": [
+    "/images/products/excellent-gato-adulto-1.svg",
+    "/images/products/excellent-gato-adulto-2.svg",
+    "/images/products/excellent-gato-adulto-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [],
+  "compareAtPrice": 41000,
+  "stock": 6
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Ken L Cachorro Húmedo",
+  "description": "Alimento húmedo para cachorros, sabor pollo.",
+  "longDescription": "Ken L Cachorro Húmedo. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Sabor pollo\n- Textura suave para cachorros\n- Con calcio para el crecimiento\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 3200,
+  "category": "Alimentos Húmedos",
+  "brand": "Ken L",
+  "species": "perro",
+  "foodType": "humido",
+  "images": [
+    "/images/products/ken-l-cachorro-humedo-1.svg",
+    "/images/products/ken-l-cachorro-humedo-2.svg",
+    "/images/products/ken-l-cachorro-humedo-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "novedad"
+  ],
+  "compareAtPrice": 3900,
+  "stock": 8
+}

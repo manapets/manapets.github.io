@@ -1,0 +1,35 @@
+{
+  "name": "Eukanuba Small Breed",
+  "description": "Balanceado para razas pequeñas, con fibras para la digestión.",
+  "longDescription": "Eukanuba Small Breed. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Diseñado para razas pequeñas\n- Con fibras prebióticas\n- Apoya una piel sana\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 36000,
+  "category": "Alimentos Secos",
+  "brand": "Eukanuba",
+  "species": "perro",
+  "foodType": "seco",
+  "images": [
+    "/images/products/eukanuba-small-breed-1.svg",
+    "/images/products/eukanuba-small-breed-2.svg",
+    "/images/products/eukanuba-small-breed-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "novedad"
+  ],
+  "compareAtPrice": 42000,
+  "variants": [
+    {
+      "label": "3kg",
+      "price": 36000,
+      "stock": 5,
+      "compareAtPrice": 42000
+    },
+    {
+      "label": "7,5kg",
+      "price": 82000,
+      "stock": 0,
+      "compareAtPrice": 95000
+    }
+  ]
+}

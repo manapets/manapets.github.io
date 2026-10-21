@@ -1,0 +1,12 @@
+{
+  "title": "Royal Canin Mini Adulto",
+  "slug": "royal-canin-mini",
+  "categoria": "Perros",
+  "precio": 35000,
+  "precio_venta": 29900,
+  "promocion": true,
+  "descripcion": "Croquetas pequeñas para perros adultos de razas pequeñas (hasta 10 kg). Ayuda a reducir el sarro y tiene alta palatabilidad.",
+  "imagen": "/images/products/royal-canin-mini-adult-1.svg",
+  "stock": 12,
+  "activo": true
+}

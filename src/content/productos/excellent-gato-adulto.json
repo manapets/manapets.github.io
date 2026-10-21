@@ -1,0 +1,12 @@
+{
+  "title": "Excellent Gato Adulto",
+  "slug": "excellent-gato-adulto",
+  "categoria": "Gatos",
+  "precio": 28000,
+  "precio_venta": 24500,
+  "promocion": true,
+  "descripcion": "Alimento balanceado para gatos adultos de todas las razas.",
+  "imagen": "/images/products/excellent-gato-adulto-1.svg",
+  "stock": 0,
+  "activo": true
+}

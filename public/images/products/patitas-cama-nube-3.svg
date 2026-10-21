@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-label="Cama Nube Antiestrés">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1D4C63"/>
+      <stop offset="0.55" stop-color="#1D4C63"/>
+      <stop offset="1" stop-color="#5AE0D5"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#g)"/>
+  <rect width="1200" height="1200" fill="url(#grid)"/>
+  <circle cx="514.5" cy="322.5" r="37.8" fill="rgba(255,255,255,0.28)"/><circle cx="568.5" cy="286.5" r="41.4" fill="rgba(255,255,255,0.28)"/><circle cx="631.5" cy="286.5" r="41.4" fill="rgba(255,255,255,0.28)"/><circle cx="685.5" cy="322.5" r="37.8" fill="rgba(255,255,255,0.28)"/><ellipse cx="600" cy="408" rx="85.5" ry="72" fill="rgba(255,255,255,0.28)"/>
+  <text x="600" y="660" text-anchor="middle" font-family="Fredoka, Nunito, system-ui, sans-serif" font-size="66" font-weight="700" letter-spacing="4" fill="rgba(255,255,255,0.85)">PATITAS</text>
+  <text x="600" y="768" text-anchor="middle" font-family="Fredoka, Nunito, system-ui, sans-serif" font-size="102" font-weight="800" fill="rgba(255,255,255,0.97)">Cama Nube Antiestrés</text>
+  <text x="600" y="864" text-anchor="middle" font-family="Fredoka, Nunito, system-ui, sans-serif" font-size="54" font-weight="500" fill="rgba(255,255,255,0.75)">Vista Detalle · imagen de ejemplo</text>
+</svg>

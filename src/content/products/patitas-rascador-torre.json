@@ -1,0 +1,22 @@
+{
+  "name": "Rascador Torre 60 cm",
+  "description": "Torre rascador de 60 cm con plataforma y cueva.",
+  "longDescription": "Rascador Torre 60 cm. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Poste de sisal resistente\n- Plataforma para dormir\n- Cueva en la base\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 52000,
+  "category": "Rascadores",
+  "brand": "Patitas",
+  "species": "gato",
+  "foodType": null,
+  "images": [
+    "/images/products/patitas-rascador-torre-1.svg",
+    "/images/products/patitas-rascador-torre-2.svg",
+    "/images/products/patitas-rascador-torre-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "top-ventas"
+  ],
+  "compareAtPrice": 65000,
+  "stock": 3
+}

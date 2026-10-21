@@ -1,0 +1,25 @@
+{
+  "name": "Mana Pet Shop",
+  "tagline": "El amor tiene cuatro patas",
+  "description": "Mana Pet Shop: pet shop online en Mendoza. Alimentos secos y húmedos, camas, higiene y snacks para perros y gatos, con envío y pedidos por WhatsApp.",
+  "city": "Mendoza",
+  "address": "Guaymallén, Mendoza",
+  "whatsappPhone": "5492615555555",
+  "whatsappGreeting": "¡Hola {store}! Quiero hacer el siguiente pedido:",
+  "currency": "ARS",
+  "locale": "es-AR",
+  "email": "hola@manapetshop.com.ar",
+  "instagram": "",
+  "facebook": "",
+  "shippingNote": "Coordinamos la entrega por WhatsApp una vez confirmado el pedido.",
+  "freeShippingGoal": 30000,
+  "installmentsGoal": 150000,
+  "installmentsCount": 3,
+  "reintegroRate": 0.05,
+  "discountCodes": [
+    {
+      "code": "PLUSPET10",
+      "rate": 0.1
+    }
+  ]
+}

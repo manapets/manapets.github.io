@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PLACEHOLDER del logotipo — reemplazar por el archivo oficial:
+      public/images/logo-mana-pet-shop.svg
+  (No es el logotipo real: es solo la caja con el texto de referencia.)
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="88" viewBox="0 0 400 88" role="img" aria-label="AQUÍ VA EL LOGO MANA PET SHOP">
+  <rect x="3" y="3" width="394" height="82" rx="20" fill="#F2F8FA" stroke="#5AE0D5" stroke-width="3" stroke-dasharray="10 8"/>
+  <text x="200" y="36" text-anchor="middle" font-family="Fredoka, Nunito, system-ui, sans-serif" font-size="15" font-weight="600" letter-spacing="1.5" fill="#5E7A8C">AQUÍ VA EL LOGO</text>
+  <text x="200" y="66" text-anchor="middle" font-family="Fredoka, Nunito, system-ui, sans-serif" font-size="26" font-weight="700">
+    <tspan fill="#0D2B3E">MANA</tspan><tspan fill="#0D2B3E"> </tspan><tspan fill="#F58A3C">PET</tspan><tspan fill="#0D2B3E"> </tspan><tspan fill="#5AE0D5">SHOP</tspan>
+  </text>
+</svg>

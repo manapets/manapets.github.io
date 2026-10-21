@@ -1,0 +1,34 @@
+{
+  "name": "Agility Piedras Aglomerantes",
+  "description": "Piedras sanitarias aglomerantes con control de olores.",
+  "longDescription": "Agility Piedras Aglomerantes. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Aglomerado firme y fácil de retirar\n- Neutraliza olores al instante\n- Bajo nivel de polvo\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 7000,
+  "category": "Piedras Sanitarias",
+  "brand": "Agility",
+  "species": "gato",
+  "foodType": null,
+  "images": [
+    "/images/products/agility-piedras-aglomerantes-1.svg",
+    "/images/products/agility-piedras-aglomerantes-2.svg",
+    "/images/products/agility-piedras-aglomerantes-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [],
+  "compareAtPrice": 8500,
+  "stock": 30,
+  "variants": [
+    {
+      "label": "4kg",
+      "price": 7000,
+      "stock": 30,
+      "compareAtPrice": 8500
+    },
+    {
+      "label": "10kg",
+      "price": 15000,
+      "stock": 12,
+      "compareAtPrice": 19000
+    }
+  ]
+}

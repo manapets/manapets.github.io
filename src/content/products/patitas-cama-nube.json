@@ -1,0 +1,22 @@
+{
+  "name": "Cama Nube Antiestrés",
+  "description": "Cama redonda antiestrés con relleno siliconado y funda lavable.",
+  "longDescription": "Cama Nube Antiestrés. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Relleno siliconado súper mullido\n- Funda desmontable y lavable\n- Base antideslizante\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 45000,
+  "category": "Camas",
+  "brand": "Patitas",
+  "species": "perro",
+  "foodType": null,
+  "images": [
+    "/images/products/patitas-cama-nube-1.svg",
+    "/images/products/patitas-cama-nube-2.svg",
+    "/images/products/patitas-cama-nube-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "liquidacion"
+  ],
+  "compareAtPrice": 62000,
+  "stock": 4
+}

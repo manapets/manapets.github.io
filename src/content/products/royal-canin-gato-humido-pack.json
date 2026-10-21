@@ -1,0 +1,35 @@
+{
+  "name": "Royal Canin Gato Húmedo Pack",
+  "description": "Pack de latitas para gatos adultos, sabor pollo y carne.",
+  "longDescription": "Royal Canin Gato Húmedo Pack. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Sabor pollo y carne\n- Alta humedad, ideal para gatos que toman poca agua\n- Sin conservantes añadidos\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 42000,
+  "category": "Alimentos Húmedos",
+  "brand": "Royal Canin",
+  "species": "gato",
+  "foodType": "humido",
+  "images": [
+    "/images/products/royal-canin-gato-humido-pack-1.svg",
+    "/images/products/royal-canin-gato-humido-pack-2.svg",
+    "/images/products/royal-canin-gato-humido-pack-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "top-ventas"
+  ],
+  "compareAtPrice": 48000,
+  "variants": [
+    {
+      "label": "x12",
+      "price": 42000,
+      "stock": 6,
+      "compareAtPrice": 48000
+    },
+    {
+      "label": "x24",
+      "price": 79000,
+      "stock": 0,
+      "compareAtPrice": 96000
+    }
+  ]
+}

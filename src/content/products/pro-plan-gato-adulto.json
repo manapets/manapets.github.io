@@ -1,0 +1,33 @@
+{
+  "name": "Pro Plan Gato Adulto",
+  "description": "Alimento completo para gatos adultos de interior.",
+  "longDescription": "Pro Plan Gato Adulto. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Control de bolas de pelo\n- Proteína de pollo de alta calidad\n- Con taurina\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 32000,
+  "category": "Alimentos Secos",
+  "brand": "Pro Plan",
+  "species": "gato",
+  "foodType": "seco",
+  "images": [
+    "/images/products/pro-plan-gato-adulto-1.svg",
+    "/images/products/pro-plan-gato-adulto-2.svg",
+    "/images/products/pro-plan-gato-adulto-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [],
+  "compareAtPrice": 37000,
+  "variants": [
+    {
+      "label": "1,5kg",
+      "price": 32000,
+      "stock": 11,
+      "compareAtPrice": 37000
+    },
+    {
+      "label": "7kg",
+      "price": 115000,
+      "stock": 1,
+      "compareAtPrice": 135000
+    }
+  ]
+}

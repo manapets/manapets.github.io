@@ -1,0 +1,28 @@
+---
+/**
+ * LOGOTIPO — espacio reservado para la imagen oficial "Mana Pet Shop".
+ *
+ * ⚠️  No se recrea el logotipo con CSS: las letras son personalizadas.
+ *     Para poner el logo real, reemplazá el archivo:
+ *
+ *         public/images/logo-mana-pet-shop.svg
+ *
+ *     por el logotipo definitivo (PNG o SVG). Este componente no hace falta tocarlo.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<!-- AQUÍ VA EL LOGO MANA PET SHOP -->
+<img
+  src="/images/logo-mana-pet-shop.svg"
+  alt="AQUÍ VA EL LOGO MANA PET SHOP"
+  class={`logo-slot object-contain ${className}`}
+  width="200"
+  height="44"
+  decoding="async"
+  data-logo
+/>

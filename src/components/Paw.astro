@@ -1,0 +1,28 @@
+---
+/**
+ * Huella de mascota (perro/gato). Se usa como icono decorativo en morado
+ * y como sello de marca. Hereda el color con `currentColor`.
+ */
+interface Props {
+  class?: string;
+  size?: number | string;
+}
+
+const { class: className = '', size = 24 } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 24 24"
+  class={className}
+  width={size}
+  height={size}
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  <ellipse cx="12" cy="15.5" rx="5" ry="4.2"></ellipse>
+  <circle cx="6.4" cy="9.6" r="2.1"></circle>
+  <circle cx="10.2" cy="6.6" r="2.3"></circle>
+  <circle cx="14.5" cy="7.4" r="2.2"></circle>
+  <circle cx="18" cy="10.6" r="2"></circle>
+</svg>

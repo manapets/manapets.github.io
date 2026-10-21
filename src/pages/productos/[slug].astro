@@ -1,0 +1,156 @@
+---
+// src/pages/productos/[slug].astro
+// Detalle de producto leyendo archivos JSON generados por Decap CMS
+
+export function getStaticPaths() {
+  const products = import.meta.glob('../../content/productos/*.json', { eager: true });
+  const slugs = Object.values(products).map((mod) => (mod as { default: any }).default.slug);
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const products = import.meta.glob('../../content/productos/*.json', { eager: true });
+
+const { slug } = Astro.params;
+
+let producto: any = null;
+
+for (const [path, mod] of Object.entries(products)) {
+  const p = (mod as { default: any }).default;
+  if (p && p.slug === slug) {
+    producto = p;
+    break;
+  }
+}
+
+if (!producto) {
+  return Astro.redirect('/404');
+}
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{producto.title} - ManáPets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: #f8fafc; color: #0f172a; line-height: 1.5; }
+    a { color: #0D2B3E; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+    header { background: #0D2B3E; color: #fff; padding: 1rem 0; }
+    header .container { display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-family: 'Fredoka', sans-serif; font-size: 1.5rem; }
+    nav a { color: #fff; margin-left: 1.5rem; font-weight: 600; }
+    .breadcrumbs { padding: 1rem 0; color: #64748b; font-size: 0.9rem; }
+    .breadcrumbs a { color: #0D2B3E; }
+    .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2rem 0; }
+    @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } }
+    .image-box { background: #f1f5f9; border-radius: 1rem; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .image-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .image-box.empty { color: #94a3b8; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #fee2e2; color: #991b1b; font-size: 0.7rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; }
+    h1 { font-family: 'Fredoka', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .category { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; font-weight: 700; margin-bottom: 0.75rem; }
+    .price-row { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 1rem; }
+    .price-current { font-size: 2rem; font-weight: 800; color: #0D2B3E; }
+    .price-old { font-size: 1.1rem; color: #94a3b8; text-decoration: line-through; }
+    .stock { font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; }
+    .stock-ok { color: #16a34a; }
+    .stock-low { color: #ca8a04; }
+    .stock-out { color: #dc2626; }
+    .description { margin-bottom: 1.5rem; color: #334155; }
+    .description p { margin-bottom: 0.75rem; }
+    .btn { display: inline-block; background: #0D2B3E; color: #fff; border: none; padding: 1rem 1.5rem; border-radius: 0.5rem; font-weight: 700; font-size: 1rem; cursor: pointer; text-align: center; }
+    .btn:hover { background: #0b2232; }
+    .btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+    .meta { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 0.85rem; }
+    .meta dt { font-weight: 700; color: #0f172a; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1><a href="/" style="color:inherit; text-decoration:none;">ManáPets</a></h1>
+      <nav>
+        <a href="/admin">Administrador</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumbs container">
+    <a href="/">Inicio</a> / <a href="/productos">Productos</a> / <span>{producto.title}</span>
+  </div>
+
+  <div class="container">
+    <div class="layout">
+      <div class="image-box">
+        {producto.imagen ? (
+          <img src={producto.imagen} alt={producto.title} />
+        ) : (
+          <div class="empty">Sin imagen cargada</div>
+        )}
+      </div>
+
+      <div>
+        {producto.promocion && producto.precio_venta ? (
+          <span class="badge">Promoción</span>
+        ) : null}
+        <span class="category">{producto.categoria ?? ''}</span>
+        <h1>{producto.title}</h1>
+
+        <div class="price-row">
+          {producto.promocion && producto.precio_venta ? (
+            <>
+              <span class="price-current">${Number(producto.precio_venta)}</span>
+              <span class="price-old">${Number(producto.precio)}</span>
+            </>
+          ) : (
+            <span class="price-current">${Number(producto.precio)}</span>
+          )}
+        </div>
+
+        <span class={`stock ${Number(producto.stock) <= 0 ? 'stock-out' : Number(producto.stock) <= 10 ? 'stock-low' : 'stock-ok'}`}>
+          {Number(producto.stock) <= 0 ? 'Sin stock' : Number(producto.stock) <= 10 ? `Quedan ${producto.stock} unidades` : `Stock: ${producto.stock} unidades`}
+        </span>
+
+        {producto.descripcion ? (
+          <div class="description">{producto.descripcion}</div>
+        ) : null}
+
+        <button class="btn" disabled={Number(producto.stock) <= 0}>
+          {Number(producto.stock) > 0 ? 'Agregar al carrito' : 'Sin stock'}
+        </button>
+      </div>
+    </div>
+
+    <div class="meta">
+      <dl>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem;">
+          <dt>Marca</dt>
+          <dd>{producto.categoria ?? '—'}</dd>
+          <dt>Precio normal</dt>
+          <dd>${Number(producto.precio)}</dd>
+          {producto.promocion && producto.precio_venta ? (
+            <>
+              <dt>Precio de venta</dt>
+              <dd>${Number(producto.precio_venta)}</dd>
+            </>
+          ) : null}
+          <dt>Stock</dt>
+          <dd>{producto.stock} unidades</dd>
+          <dt>Estado</dt>
+          <dd>{producto.activo !== false ? 'Activo' : 'Inactivo'}</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "Royal Canin Gato Sterilised",
+  "description": "Nutrición completa para gatos adultos esterilizados.",
+  "longDescription": "Royal Canin Gato Sterilised. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Ayuda a mantener un peso saludable\n- Control del pH urinario\n- Apto para gatos esterilizados\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 28000,
+  "category": "Alimentos Secos",
+  "brand": "Royal Canin",
+  "species": "gato",
+  "foodType": "seco",
+  "images": [
+    "/images/products/royal-canin-gato-sterilised-1.svg",
+    "/images/products/royal-canin-gato-sterilised-2.svg",
+    "/images/products/royal-canin-gato-sterilised-3.svg"
+  ],
+  "featured": true,
+  "inStock": true,
+  "tags": [
+    "top-ventas"
+  ],
+  "compareAtPrice": 32000,
+  "variants": [
+    {
+      "label": "1,5kg",
+      "price": 28000,
+      "stock": 8,
+      "compareAtPrice": 32000
+    },
+    {
+      "label": "4kg",
+      "price": 62000,
+      "stock": 2,
+      "compareAtPrice": 70000
+    }
+  ]
+}

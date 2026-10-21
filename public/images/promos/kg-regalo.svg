@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700" role="img" aria-label="Alimentos con kg de regalo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0D2B3E"/>
+      <stop offset="0.55" stop-color="#0D2B3E"/>
+      <stop offset="1" stop-color="#9B59B6"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="700" fill="url(#g)"/>
+  <rect width="900" height="700" fill="url(#grid)"/>
+  <circle cx="400.125" cy="188.125" r="22.05" fill="rgba(255,255,255,0.28)"/><circle cx="431.625" cy="167.125" r="24.150000000000002" fill="rgba(255,255,255,0.28)"/><circle cx="468.375" cy="167.125" r="24.150000000000002" fill="rgba(255,255,255,0.28)"/><circle cx="499.875" cy="188.125" r="22.05" fill="rgba(255,255,255,0.28)"/><ellipse cx="450" cy="238" rx="49.875" ry="42" fill="rgba(255,255,255,0.28)"/>
+  <text x="450" y="385" text-anchor="middle" font-family="Fredoka, Nunito, system-ui, sans-serif" font-size="39" font-weight="700" letter-spacing="4" fill="rgba(255,255,255,0.85)">PROMO</text>
+  <text x="450" y="448" text-anchor="middle" font-family="Fredoka, Nunito, system-ui, sans-serif" font-size="60" font-weight="800" fill="rgba(255,255,255,0.97)">Alimentos con kg de regalo</text>
+  <text x="450" y="504" text-anchor="middle" font-family="Fredoka, Nunito, system-ui, sans-serif" font-size="32" font-weight="500" fill="rgba(255,255,255,0.75)">Aprovechá los combos</text>
+</svg>

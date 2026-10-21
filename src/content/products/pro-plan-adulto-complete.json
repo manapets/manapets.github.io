@@ -1,0 +1,35 @@
+{
+  "name": "Pro Plan Adulto Complete",
+  "description": "Nutrición avanzada con proteína de pollo para perros adultos.",
+  "longDescription": "Pro Plan Adulto Complete. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Proteína de pollo como primer ingrediente\n- Con prebióticos para la digestión\n- Sin colorantes añadidos\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 40000,
+  "category": "Alimentos Secos",
+  "brand": "Pro Plan",
+  "species": "perro",
+  "foodType": "seco",
+  "images": [
+    "/images/products/pro-plan-adulto-complete-1.svg",
+    "/images/products/pro-plan-adulto-complete-2.svg",
+    "/images/products/pro-plan-adulto-complete-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "top-ventas"
+  ],
+  "compareAtPrice": 46000,
+  "variants": [
+    {
+      "label": "3kg",
+      "price": 40000,
+      "stock": 7,
+      "compareAtPrice": 46000
+    },
+    {
+      "label": "15kg",
+      "price": 165000,
+      "stock": 2,
+      "compareAtPrice": 189000
+    }
+  ]
+}

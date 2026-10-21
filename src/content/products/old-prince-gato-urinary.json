@@ -1,0 +1,35 @@
+{
+  "name": "Old Prince Gato Urinary",
+  "description": "Fórmula para gatos con tendencia a problemas urinarios.",
+  "longDescription": "Old Prince Gato Urinary. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Control del pH urinario\n- Bajo en magnesio\n- Alta palatabilidad\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 26000,
+  "category": "Alimentos Secos",
+  "brand": "Old Prince",
+  "species": "gato",
+  "foodType": "seco",
+  "images": [
+    "/images/products/old-prince-gato-urinary-1.svg",
+    "/images/products/old-prince-gato-urinary-2.svg",
+    "/images/products/old-prince-gato-urinary-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "novedad"
+  ],
+  "compareAtPrice": 31000,
+  "variants": [
+    {
+      "label": "1,5kg",
+      "price": 26000,
+      "stock": 9,
+      "compareAtPrice": 31000
+    },
+    {
+      "label": "4kg",
+      "price": 58000,
+      "stock": 0,
+      "compareAtPrice": 68000
+    }
+  ]
+}

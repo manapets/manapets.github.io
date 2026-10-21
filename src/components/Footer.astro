@@ -1,0 +1,75 @@
+---
+import { STORE } from '../config';
+import { NAV } from '../lib/nav';
+
+const year = new Date().getFullYear();
+const menu = NAV;
+const ayuda = [
+  { label: 'Envíos y entregas', href: '/#faq-envio-gratis' },
+  { label: 'Retiro en depósito', href: '/#faq-retiro' },
+  { label: 'Medios de pago', href: '/#faq-pagos' },
+  { label: 'Preguntas frecuentes', href: '/#preguntas' },
+];
+const politicas = [
+  { label: 'Cambios y devoluciones', href: '/#faq-devoluciones' },
+  { label: 'Términos y condiciones', href: '/#preguntas' },
+  { label: 'Política de privacidad', href: '/#preguntas' },
+];
+const payments = ['Visa', 'Mastercard', 'Mercado Pago'];
+---
+
+<footer class="mt-8 border-t border-border bg-white">
+  <div class="container-page grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="sm:col-span-2 lg:col-span-1">
+      <p class="flex items-center gap-2 text-lg font-extrabold tracking-tight">
+        <span class="grid h-8 w-8 place-items-center rounded-[var(--radius-sm)] bg-brand-secondary">
+          <svg viewBox="0 0 24 24" class="h-4.5 w-4.5" fill="var(--color-brand-primary)" aria-hidden="true">
+            <ellipse cx="12" cy="15.5" rx="5" ry="4.2" /><circle cx="6.4" cy="9.6" r="2.1" /><circle cx="10.2" cy="6.6" r="2.3" /><circle cx="14.5" cy="7.4" r="2.2" /><circle cx="18" cy="10.6" r="2" />
+          </svg>
+        </span>
+        {STORE.name}
+      </p>
+      <p class="mt-3 max-w-xs text-sm text-muted">{STORE.description}</p>
+      <a href={`https://wa.me/${STORE.whatsappPhone}`} target="_blank" rel="noopener" class="btn-whatsapp mt-4">
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Z" /></svg>
+        Escribinos por WhatsApp
+      </a>
+      <p class="mt-3 text-sm text-muted">
+        <span class="font-semibold text-foreground">Depósito:</span> {STORE.address}
+      </p>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide">Menú</p>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        {menu.map((item) => <li><a class="hover:text-foreground" href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide">Ayuda</p>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        {ayuda.map((item) => <li><a class="hover:text-foreground" href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide">Políticas</p>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        {politicas.map((item) => <li><a class="hover:text-foreground" href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-border">
+    <div class="container-page flex flex-col items-start justify-between gap-4 py-5 sm:flex-row sm:items-center">
+      <p class="text-xs text-muted">© {year} {STORE.name}. Todos los derechos reservados. Sitio estático — sin servidor ni base de datos.</p>
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-muted">Medios de pago:</span>
+        {payments.map((payment) => (
+          <span class="rounded-[var(--radius-sm)] border border-border bg-muted-bg px-2.5 py-1 text-xs font-bold text-muted">{payment}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

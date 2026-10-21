@@ -1,0 +1,20 @@
+{
+  "name": "Cama Iglú para Gatos",
+  "description": "Cama tipo iglú para gatos, abrigada y fácil de lavar.",
+  "longDescription": "Cama Iglú para Gatos. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Interior abrigado y acolchado\n- Apto lavado en lavarropas\n- Con almohadón removible\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 38000,
+  "category": "Camas",
+  "brand": "Patitas",
+  "species": "gato",
+  "foodType": null,
+  "images": [
+    "/images/products/patitas-cama-iglu-gato-1.svg",
+    "/images/products/patitas-cama-iglu-gato-2.svg",
+    "/images/products/patitas-cama-iglu-gato-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [],
+  "compareAtPrice": 45000,
+  "stock": 12
+}

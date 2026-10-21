@@ -1,0 +1,20 @@
+{
+  "name": "Snack Dental Perros y Gatos",
+  "description": "Snack dental que ayuda a reducir el sarro y el mal aliento.",
+  "longDescription": "Snack Dental Perros y Gatos. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Apto para perros y gatos\n- Textura que limpia los dientes\n- Sin azúcar añadida\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 4200,
+  "category": "Snacks",
+  "brand": "Patitas",
+  "species": "ambos",
+  "foodType": null,
+  "images": [
+    "/images/products/patitas-snack-dental-ambos-1.svg",
+    "/images/products/patitas-snack-dental-ambos-2.svg",
+    "/images/products/patitas-snack-dental-ambos-3.svg"
+  ],
+  "featured": false,
+  "inStock": false,
+  "tags": [],
+  "compareAtPrice": 5200,
+  "stock": 0
+}

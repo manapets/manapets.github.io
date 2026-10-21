@@ -1,0 +1,38 @@
+---
+const promos = [
+  {
+    eyebrow: 'Promo',
+    title: 'Alimentos con kg de regalo',
+    text: 'Comprá las bolsas grandes y llevate kilos extra sin costo.',
+    image: '/images/promos/kg-regalo.svg',
+    href: '/productos/?promo=kg',
+    cta: 'Ver alimentos',
+  },
+  {
+    eyebrow: 'Beneficio',
+    title: 'Reintegros en cada compra',
+    text: 'Recibís el 5% de tu compra para usar en tu próximo pedido.',
+    image: '/images/promos/reintegros.svg',
+    href: '/productos/',
+    cta: 'Cómo funciona',
+  },
+];
+---
+
+<section class="container-page py-4">
+  <div class="grid gap-4 md:grid-cols-2">
+    {
+      promos.map((promo) => (
+        <a href={promo.href} class="group flex items-center gap-4 overflow-hidden rounded-[var(--radius-xl)] border border-border bg-white p-3 transition-shadow hover:shadow-lg">
+          <img src={promo.image} alt="" class="h-28 w-28 shrink-0 rounded-[var(--radius-lg)] object-cover sm:h-32 sm:w-32" width="900" height="700" loading="lazy" />
+          <div class="pr-2">
+            <span class="pill bg-brand-primary text-foreground">{promo.eyebrow}</span>
+            <h2 class="mt-2 text-lg font-extrabold leading-tight tracking-tight">{promo.title}</h2>
+            <p class="mt-1 text-sm text-muted">{promo.text}</p>
+            <span class="mt-2 inline-block text-sm font-semibold text-brand-secondary group-hover:underline">{promo.cta} →</span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>

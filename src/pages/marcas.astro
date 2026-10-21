@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BRANDS } from '../lib/nav';
+import { slugifyCategory } from '../lib/catalog';
+
+const products = await getCollection('products');
+const brands = BRANDS.map((brand) => ({
+  ...brand,
+  count: products.filter((p) => slugifyCategory(p.data.brand) === brand.slug).length,
+})).filter((b) => b.count > 0);
+---
+
+<BaseLayout title="Marcas" description="Comprá por marca: Royal Canin, Agility, Sieger, Old Prince, Ken L, Pro Plan, Excellent y Eukanuba.">
+  <section class="container-page py-10">
+    <h1 class="text-3xl font-extrabold tracking-tight">Marcas</h1>
+    <p class="mt-1 text-sm text-muted">Elegí tu marca favorita y filtrá el catálogo.</p>
+
+    <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      {
+        brands.map((brand) => (
+          <a href={`/productos/?marca=${brand.slug}`} class="group flex flex-col items-center justify-center gap-2 rounded-[var(--radius-xl)] border border-border bg-white px-4 py-8 text-center transition-colors hover:border-brand-secondary">
+            <span class="text-xl font-extrabold uppercase tracking-wide text-foreground transition-colors group-hover:text-brand-secondary">{brand.name}</span>
+            <span class="text-xs text-muted">{brand.count} productos</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

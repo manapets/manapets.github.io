@@ -1,0 +1,23 @@
+---
+import { BRANDS } from '../lib/nav';
+---
+
+<section class="container-page py-10">
+  <div class="mb-5 flex items-end justify-between">
+    <h2 class="text-2xl font-extrabold tracking-tight">Comprá por marca</h2>
+    <a href="/marcas" class="text-sm font-semibold text-brand-secondary hover:underline">Ver todas</a>
+  </div>
+
+  <div class="no-scrollbar -mx-1 flex snap-x gap-3 overflow-x-auto px-1 pb-1">
+    {
+      BRANDS.map((brand) => (
+        <a
+          href={`/productos/?marca=${brand.slug}`}
+          class="flex h-20 w-40 shrink-0 snap-start items-center justify-center rounded-[var(--radius-lg)] border border-border bg-white px-4 text-center text-lg font-extrabold uppercase tracking-wide text-muted transition-colors hover:border-brand-secondary hover:text-brand-secondary"
+        >
+          {brand.name}
+        </a>
+      ))
+    }
+  </div>
+</section>

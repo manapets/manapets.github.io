@@ -1,0 +1,20 @@
+{
+  "name": "Shampoo Hipoalergénico",
+  "description": "Shampoo hipoalergénico con aloe vera y avena.",
+  "longDescription": "Shampoo Hipoalergénico. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Con aloe vera y avena\n- Apto para pieles sensibles\n- pH neutro, no irrita\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 9500,
+  "category": "Higiene",
+  "brand": "Patitas",
+  "species": "perro",
+  "foodType": null,
+  "images": [
+    "/images/products/patitas-shampoo-hipoalergenico-1.svg",
+    "/images/products/patitas-shampoo-hipoalergenico-2.svg",
+    "/images/products/patitas-shampoo-hipoalergenico-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [],
+  "compareAtPrice": 12000,
+  "stock": 22
+}

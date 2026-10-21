@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import BrandHero from '../components/BrandHero.astro';
+import Benefits from '../components/Benefits.astro';
+import CategoryTiles from '../components/CategoryTiles.astro';
+import PromoStrip from '../components/PromoStrip.astro';
+import BrandSpotlight from '../components/BrandSpotlight.astro';
+import BrandStrip from '../components/BrandStrip.astro';
+import FoodTypeTiles from '../components/FoodTypeTiles.astro';
+import CollectionLinks from '../components/CollectionLinks.astro';
+import BestsellersTabs from '../components/BestsellersTabs.astro';
+import WeeklyOffers from '../components/WeeklyOffers.astro';
+import Faq from '../components/Faq.astro';
+import { STORE } from '../config';
+import { discountPercent } from '../lib/pricing';
+
+const products = await getCollection('products');
+const spotlightBrand = 'Royal Canin';
+const spotlight = products.filter((p) => p.data.brand === spotlightBrand).slice(0, 5);
+const bestsellers = products.filter((p) => p.data.tags.includes('top-ventas'));
+const weekly = products
+  .map((p) => ({ p, off: discountPercent(p.data.price, p.data.compareAtPrice) }))
+  .filter((x) => x.off >= 15)
+  .sort((a, b) => b.off - a.off)
+  .slice(0, 5)
+  .map((x) => x.p);
+---
+
+<BaseLayout title={STORE.name}>
+  <BrandHero />
+  <Hero />
+  <Benefits />
+  <CategoryTiles />
+  <PromoStrip />
+  <BrandSpotlight brand={spotlightBrand} slug="royal-canin" products={spotlight} />
+  <BrandStrip />
+  <FoodTypeTiles />
+  <CollectionLinks />
+  <BestsellersTabs products={bestsellers} />
+  <WeeklyOffers products={weekly} />
+  <Faq />
+</BaseLayout>

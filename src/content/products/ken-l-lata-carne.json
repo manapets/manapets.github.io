@@ -1,0 +1,22 @@
+{
+  "name": "Ken L Lata Carne",
+  "description": "Lata de carne para perros, ideal para mezclar con el seco.",
+  "longDescription": "Ken L Lata Carne. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Carne en trozos, muy palatable\n- Perfecta para mezclar con balanceado\n- Sin conservantes artificiales\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 2800,
+  "category": "Alimentos Húmedos",
+  "brand": "Ken L",
+  "species": "perro",
+  "foodType": "humido",
+  "images": [
+    "/images/products/ken-l-lata-carne-1.svg",
+    "/images/products/ken-l-lata-carne-2.svg",
+    "/images/products/ken-l-lata-carne-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "top-ventas"
+  ],
+  "compareAtPrice": 3500,
+  "stock": 60
+}

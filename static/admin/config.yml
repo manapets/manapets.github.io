@@ -1,0 +1,50 @@
+backend:
+  name: github
+  repo: manapets/manapets.github.io
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "productos"
+    label: "Productos"
+    folder: "src/content/productos"
+    create: true
+    slug: "{{slug }}"
+    extension: "json"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Slug (URL amigable)", name: "slug", widget: "string"}
+      - {label: "Categoría", name: "categoria", widget: "string"}
+      - {label: "Precio normal", name: "precio", widget: "number"}
+      - {label: "Precio de venta / promoción", name: "precio_venta", widget: "number"}
+      - {label: "¿Promoción activa?", name: "promocion", widget: "boolean"}
+      - {label: "Descripción", name: "descripcion", widget: "text"}
+      - {label: "Imagen", name: "imagen", widget: "image"}
+      - {label: "Stock", name: "stock", widget: "number"}
+      - {label: "Producto activo", name: "activo", widget: "boolean", default: true}
+
+  - name: "categorias"
+    label: "Categorías"
+    folder: "src/content/categorias"
+    create: true
+    slug: "{{slug }}"
+    extension: "json"
+    fields:
+      - {label: "Nombre", name: "title", widget: "string"}
+      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "Descripción", name: "descripcion", widget: "text"}
+
+  - name: "catalogos"
+    label: "Catálogos y Promociones"
+    folder: "src/content/catalogos"
+    create: true
+    slug: "{{slug }}"
+    extension: "json"
+    fields:
+      - {label: "Nombre del catálogo", name: "title", widget: "string"}
+      - {label: "Descuento %", name: "descuento", widget: "number"}
+      - {label: "Fecha inicio", name: "inicio", widget: "datetime"}
+      - {label: "Fecha fin", name: "fin", widget: "datetime"}
+      - {label: "Productos incluidos (slugs)", name: "productos", widget: "list", field: {label: "Slug del producto", name: "slug", widget: "string"}}

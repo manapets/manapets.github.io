@@ -1,0 +1,239 @@
+@import 'tailwindcss';
+
+/*
+ * ============================================================================
+ *  MANA PET SHOP — Sistema de diseño
+ *  Fondo blanco puro, estilo amigable / redondeado / "cartoon".
+ *  Paleta extraída del logotipo oficial (ver tokens --color-brand-*).
+ * ============================================================================
+ */
+
+@theme {
+  /* ----- Paleta oficial del logotipo ----- */
+  --color-brand-ink: #0D2B3E; /* Azul oscuro profundo — texto y títulos ("Mana") */
+  --color-brand-aqua: #5AE0D5; /* Turquesa / cian — acento ("Shop", orejas del gato) */
+  --color-brand-orange: #F58A3C; /* Naranja — llamados a la acción ("Pet") */
+  --color-brand-coral: #F26D6D; /* Coral / salmón — ofertas y alertas (la "P") */
+  --color-brand-purple: #9B59B6; /* Morado — decorativo, huellas */
+  --color-brand-yellow: #F1C40F; /* Amarillo — valoraciones y badges "Nuevo" */
+
+  /* ----- Tokens semánticos (remapeados a la marca) ----- */
+  --color-brand-primary: #5AE0D5;
+  --color-brand-secondary: #0D2B3E;
+  --color-brand-secondary-tint: #E3FAF8;
+  --color-background: #FFFFFF; /* blanco puro, como pide la marca */
+  --color-foreground: #0D2B3E;
+  --color-muted: #5E7A8C;
+  --color-muted-bg: #F2F8FA;
+  --color-border: #E4EDF2;
+  --color-success: #17A673;
+  --color-danger: #F26D6D;
+  --color-warning: #F58A3C;
+  --color-gift: #F26D6D;
+  --color-surface-dark: #0D2B3E;
+
+  --color-brand-coral-tint: #FDE7E7;
+
+  --page-width: 1440px;
+
+  /* Esquinas bien redondeadas: aspecto cartoon */
+  --radius-sm: 12px;
+  --radius: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* Tipografía redondeada y amigable */
+  --font-sans: 'Nunito', ui-rounded, system-ui, -apple-system, sans-serif;
+  --font-display: 'Fredoka', 'Baloo 2', 'Nunito', ui-rounded, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Títulos con la tipografía redondeada tipo logo */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-aqua);
+    color: var(--color-brand-ink);
+  }
+}
+
+@layer components {
+  .container-page {
+    width: min(100% - 2rem, var(--page-width));
+    margin-inline: auto;
+  }
+
+  .btn,
+  .btn-cta,
+  .btn-aqua,
+  .btn-yellow,
+  .btn-dark,
+  .btn-outline,
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold
+      transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-brand-secondary disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Llamado a la acción principal: Naranja con texto blanco */
+  .btn-cta {
+    @apply bg-brand-orange text-white hover:bg-brand-orange/90;
+  }
+
+  /* Acento: Turquesa con texto Azul Oscuro */
+  .btn-aqua,
+  .btn-yellow {
+    @apply bg-brand-aqua text-brand-ink hover:bg-brand-aqua/85;
+  }
+
+  .btn-dark {
+    @apply bg-surface-dark text-white hover:bg-foreground;
+  }
+
+  .btn-outline {
+    @apply border border-border bg-white text-foreground hover:border-foreground;
+  }
+
+  .btn-whatsapp {
+    @apply bg-[#25D366] text-white hover:bg-[#1ebe5a];
+  }
+
+  /* Tarjetas: blancas, 20px de radio y sombra muy sutil */
+  .card {
+    @apply rounded-[20px] border border-border bg-white;
+    box-shadow: 0 8px 22px -14px rgba(13, 43, 62, 0.16);
+  }
+
+  .input {
+    @apply w-full rounded-[var(--radius)] border border-border bg-white px-4 py-2.5 text-sm
+      placeholder:text-muted focus:border-brand-secondary focus:outline-none
+      focus:ring-2 focus:ring-brand-secondary/20;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-border bg-white px-3.5 py-1.5
+      text-sm font-medium text-muted transition-colors hover:border-foreground hover:text-foreground;
+  }
+
+  .chip-active {
+    @apply border-brand-secondary bg-brand-secondary text-white hover:border-brand-secondary hover:text-white;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold;
+  }
+
+  /* Logotipo: caja con espacio reservado para la imagen oficial */
+  .logo-slot {
+    @apply flex h-11 w-auto items-center rounded-[var(--radius)] px-1;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ----- Huellas decorativas (morado #9B59B6) flotando en el fondo blanco ----- */
+.paw-decor {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.paw-float {
+  position: absolute;
+  color: var(--color-brand-purple);
+  opacity: 0.16;
+  animation: paw-float 7s ease-in-out infinite;
+}
+
+@keyframes paw-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--paw-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-16px) rotate(var(--paw-rot, 0deg));
+  }
+}
+
+/* ----- Pulsación suave ("Estás en <ciudad>") ----- */
+.pulse-soft {
+  animation: pulse-soft 2.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.pulse-soft svg {
+  animation: pulse-pin 2.8s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(90, 224, 213, 0.38);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 7px rgba(90, 224, 213, 0);
+  }
+}
+
+@keyframes pulse-pin {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+[data-drawer-overlay],
+[data-menu-overlay] {
+  transition: opacity 0.25s ease;
+}
+[data-cart-drawer],
+[data-mobile-menu] {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .paw-float {
+    animation: none;
+  }
+  .pulse-soft,
+  .pulse-soft svg {
+    animation: none;
+  }
+  [data-cart-drawer],
+  [data-mobile-menu],
+  [data-drawer-overlay],
+  [data-menu-overlay] {
+    transition: none;
+  }
+}

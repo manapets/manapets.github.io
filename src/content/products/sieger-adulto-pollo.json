@@ -1,0 +1,33 @@
+{
+  "name": "Sieger Adulto Pollo",
+  "description": "Alimento con pollo para perros adultos de actividad normal.",
+  "longDescription": "Sieger Adulto Pollo. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Fuente de proteína de pollo\n- Con omega 3 y 6\n- Sin colorantes artificiales\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 22000,
+  "category": "Alimentos Secos",
+  "brand": "Sieger",
+  "species": "perro",
+  "foodType": "seco",
+  "images": [
+    "/images/products/sieger-adulto-pollo-1.svg",
+    "/images/products/sieger-adulto-pollo-2.svg",
+    "/images/products/sieger-adulto-pollo-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [],
+  "compareAtPrice": 26000,
+  "variants": [
+    {
+      "label": "3kg",
+      "price": 22000,
+      "stock": 0,
+      "compareAtPrice": 26000
+    },
+    {
+      "label": "15kg",
+      "price": 85000,
+      "stock": 10,
+      "compareAtPrice": 98000
+    }
+  ]
+}

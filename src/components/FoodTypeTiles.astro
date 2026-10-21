@@ -1,0 +1,41 @@
+---
+const types = [
+  {
+    title: 'Seco',
+    text: 'Balanceados y croquetas',
+    href: '/productos/?tipo=seco',
+    icon: 'dry',
+  },
+  {
+    title: 'Húmedo',
+    text: 'Latas, patés y pouch',
+    href: '/productos/?tipo=humido',
+    icon: 'wet',
+  },
+];
+---
+
+<section class="container-page py-10">
+  <h2 class="mb-5 text-2xl font-extrabold tracking-tight">Buscar por tipo de alimento</h2>
+  <div class="grid gap-4 sm:grid-cols-2">
+    {
+      types.map((type) => (
+        <a href={type.href} class="group flex items-center justify-between gap-4 rounded-[var(--radius-xl)] border border-border bg-white p-6 transition-shadow hover:shadow-lg">
+          <div>
+            <h3 class="text-xl font-extrabold tracking-tight">{type.title}</h3>
+            <p class="mt-1 text-sm text-muted">{type.text}</p>
+            <span class="mt-3 inline-block text-sm font-semibold text-brand-secondary group-hover:underline">Ver productos →</span>
+          </div>
+          <span class="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-brand-secondary-tint text-brand-secondary">
+            {type.icon === 'dry' && (
+              <svg viewBox="0 0 24 24" class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3" /><circle cx="15.5" cy="7.5" r="2.4" /><circle cx="12" cy="15" r="3.2" /><circle cx="17.5" cy="15.5" r="2" /></svg>
+            )}
+            {type.icon === 'wet' && (
+              <svg viewBox="0 0 24 24" class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z" /><path d="M14 3v4h4" /><path d="M9 12h6M9 15h6" /></svg>
+            )}
+          </span>
+        </a>
+      ))
+    }
+  </div>
+</section>

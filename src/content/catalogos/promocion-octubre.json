@@ -1,0 +1,11 @@
+{
+  "title": "Promoción Octubre",
+  "slug": "promocion-octubre",
+  "descuento": 15,
+  "inicio": "2026-10-01T00:00:00Z",
+  "fin": "2026-10-31T23:59:59Z",
+  "productos": [
+    "royal-canin-mini",
+    "excellent-gato-adulto"
+  ]
+}

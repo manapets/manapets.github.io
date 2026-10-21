@@ -1,0 +1,23 @@
+{
+  "name": "Royal Canin Cachorro Húmedo",
+  "description": "Alimento húmedo para cachorros, textura suave y muy palatable.",
+  "longDescription": "Royal Canin Cachorro Húmedo. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Ideal para cachorros desde el destete\n- Fácil de mezclar con el seco\n- Lata fácil de abrir\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
+  "price": 3500,
+  "category": "Alimentos Húmedos",
+  "brand": "Royal Canin",
+  "species": "perro",
+  "foodType": "humido",
+  "images": [
+    "/images/products/royal-canin-cachorro-humedo-1.svg",
+    "/images/products/royal-canin-cachorro-humedo-2.svg",
+    "/images/products/royal-canin-cachorro-humedo-3.svg"
+  ],
+  "featured": false,
+  "inStock": true,
+  "tags": [
+    "novedad"
+  ],
+  "compareAtPrice": 4200,
+  "stock": 18,
+  "badge": "Nuevo"
+}

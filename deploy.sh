@@ -37,9 +37,9 @@ ssh_remote() {
 
 log "Sincronizando $APP_DIR → $REMOTE:$DEST"
 tar cf - -C "$APP_DIR" --ignore-failed-read \
-  src scripts public \
+  src scripts public proxy \
   astro.config.mjs package.json package-lock.json tsconfig.json \
-  tienda.sh deploy.sh .nvmrc netlify.toml CMS.md \
+  tienda.sh deploy.sh proxy.sh up.sh .nvmrc netlify.toml CMS.md \
   | ssh_remote "mkdir -p '$DEST' && tar xf - -C '$DEST' && echo SYNC_OK"
 
 log "Compilando en el remoto"

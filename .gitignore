@@ -1,6 +1,7 @@
 # build output
 dist/
 .astro/
+*.txt
 
 # dependencies
 node_modules/
@@ -14,6 +15,9 @@ pnpm-debug.log*
 # environment
 .env
 .env.production
+
+# proxy OAuth: el .env tiene el client_secret, nunca al repo
+proxy/.env
 
 # macOS
 .DS_Store

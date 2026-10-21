@@ -3,10 +3,11 @@
 # proxy.sh — administra el proxy OAuth de Decap CMS (ManáPets)
 #
 # Uso:
-#   ./proxy.sh status     estado del servicio
+#   ./proxy.sh install    instala el servicio systemd y lo levanta (necesita sudo)
 #   ./proxy.sh start      lo levanta (systemd si hay root, si no nohup)
 #   ./proxy.sh stop       lo detiene
 #   ./proxy.sh restart    reinicia
+#   ./proxy.sh status     estado del servicio
 #   ./proxy.sh logs       sigue los logs (Ctrl+C para cortar)
 #   ./proxy.sh check      prueba el login contra el proxy (local)
 #   ./proxy.sh help       esta ayuda
@@ -132,6 +133,27 @@ cmd_logs() {
   fi
 }
 
+cmd_install() {
+  need_node
+  need_env
+
+  if ! command -v systemctl >/dev/null 2>&1; then
+    die "Este servidor no tiene systemd. Usá: $0 start"
+  fi
+
+  log "Instalando ${SERVICE}.service en /etc/systemd/system/"
+  sudo cp "$PROXY_DIR/${SERVICE}.service" /etc/systemd/system/${SERVICE}.service
+  sudo systemctl daemon-reload
+  sudo systemctl enable "$SERVICE"
+
+  log "Levantando el servicio"
+  sudo systemctl restart "$SERVICE"
+  sleep 2
+  systemctl --no-pager --lines=0 status "$SERVICE" | head -8
+
+  cmd_check
+}
+
 cmd_check() {
   need_node
   need_env
@@ -141,15 +163,28 @@ cmd_check() {
   local origin
   origin="$(grep -E '^ALLOWED_ORIGINS=' "$PROXY_DIR/.env" | head -1 | cut -d= -f2- | cut -d, -f1 | tr -d ' ')"
   log "Probando /auth con site_id=$origin"
-  curl -s -m 8 -o /dev/null -w '  HTTP %{http_code} (redirección a GitHub: %{redirect_url})\n' \
+  curl -s -m 8 -o /dev/null -w '  HTTP %{http_code}\n' \
     "http://127.0.0.1:$PORT/auth?provider=github&site_id=${origin}&scope=repo"
+
+  # ¿el base_url del proxy coincide con el del panel?
+  local proxy_base panel_base
+  proxy_base="$(grep -E '^BASE_URL=' "$PROXY_DIR/.env" | head -1 | cut -d= -f2- | tr -d ' ')"
+  panel_base="$(grep -E '^[[:space:]]*base_url:' "$APP_DIR/public/admin/config.yml" 2>/dev/null | head -1 | sed -E 's/.*base_url:[[:space:]]*//' | tr -d ' ')"
+  if [ -n "$panel_base" ]; then
+    if [ "$proxy_base" = "$panel_base" ]; then
+      log "base_url coincide con el panel: $proxy_base"
+    else
+      warn "OJO: el proxy usa BASE_URL=$proxy_base pero el panel usa base_url=$panel_base"
+    fi
+  fi
 }
 
 cmd_help() {
-  sed -n '3,18p' "$0" | sed 's/^# \{0,1\}//'
+  sed -n '3,16p' "$0" | sed 's/^# \{0,1\}//'
 }
 
 case "${1:-status}" in
+  install) cmd_install ;;
   start)   cmd_start ;;
   stop)    cmd_stop ;;
   restart) cmd_restart ;;

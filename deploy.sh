@@ -31,6 +31,7 @@ ssh_remote() {
     command -v sshpass >/dev/null 2>&1 || die "Falta sshpass, o usá una clave SSH (sin SSHPASS)."
     sshpass -e ssh "${SSH_OPTS[@]}" "$REMOTE" "$@"
   else
+    warn "SSHPASS no está definido: se intenta con clave SSH. Si falla, usá: SSHPASS=tuclave ./deploy.sh"
     ssh "${SSH_OPTS[@]}" "$REMOTE" "$@"
   fi
 }

@@ -35,46 +35,123 @@ como `Nuevo`.
 
 ## 2. Puesta en marcha (una sola vez)
 
-### Paso 1 — Subir el proyecto a GitHub
+El panel es un CMS *git-based* sobre **Decap CMS**: cada guardado hace un commit
+al repo y GitHub Actions vuelve a publicar el sitio.
 
-Desde la carpeta del proyecto:
+Hay dos partes:
+
+| Parte | Dónde vive | Qué es |
+|---|---|---|
+| El panel | `public/admin/` (estático, va a GitHub Pages) | La interfaz de edición |
+| El proxy OAuth | `proxy/server.mjs` (Node, en tu servidor) | Canjea el código de GitHub por un token |
+
+> **¿Por qué hace falta el proxy?** GitHub exige el `client_secret` para canjear
+> el código OAuth por un token, y un secret no puede estar en un archivo
+> público del sitio. Decap resuelve esto delegando el login a un proxy que vive
+> en un servidor. (Netlify Identity hace lo mismo por vos, pero el sitio
+> está en GitHub Pages, así que lo corrés vos.)
+
+### Paso 1 — Publicar el sitio en GitHub Pages
 
 ```bash
-git init -b main
 git add .
-git commit -m "Mana Pet Shop"
-git remote add origin git@github.com:<tu-usuario>/mana-pet-shop.git
-git push -u origin main
+git commit -m "Panel de administración"
+git push origin main
 ```
 
-> `main` es la rama configurada en `public/admin/config.yml`. Si usás otra,
-> actualizá `backend.branch` en ese archivo.
+El workflow `.github/workflows/deploy.yml` compila con Astro y publica en
+`https://manapets.github.io/`. Tarda ~1 minuto.
 
-### Paso 2 — Publicar en Netlify
+> Hay **dos** workflows iguales (`deploy.yml` y `static.yml`) que compiten por
+> el mismo deploy. Borra uno de los dos.
 
-1. En [Netlify](https://app.netlify.com) → **Add new site** → **Import an existing project**.
-2. Elegí GitHub y el repositorio. Netlify lee `netlify.toml` solo: no cambies nada
-   (build `npm run build`, carpeta `dist`).
-3. Publicá y anotá la dirección que te da (ej: `https://mana-pet-shop.netlify.app`).
+### Paso 2 — Crear la OAuth App en GitHub
 
-### Paso 3 — Activar el acceso al panel
+GitHub → **Settings** → **Developer settings** → **OAuth Apps** → **New OAuth App**:
 
-El panel usa el backend **github** de Decap: se inicia sesión con una cuenta de GitHub y cada editor debe tener permiso de **escritura** sobre el repositorio. No usa Netlify Identity ni Git Gateway, así que no hay upgrade ni invitaciones pagas.
+| Campo | Valor |
+|---|---|
+| Application name | `ManáPets Admin` |
+| Homepage URL | `https://manapets.github.io` |
+| Authorization callback URL | `https://proxy.webbot.ar/auth/callback` |
 
-En el sitio de Netlify:
+Anotá el **Client ID** y el **Client Secret**. El secret **nunca** va en el
+panel ni en el repo: sólo en `proxy/.env` en el servidor.
 
-1. **Project configuration → OAuth → Install provider → GitHub**
-   - Netlify te pide crear una OAuth App en GitHub (https://github.com/settings/developers → New OAuth App).
-   - La **Authorization callback URL** te la da Netlify en ese mismo paso.
-   - Copiás el **Client ID** y **Client Secret** de GitHub a Netlify y guardás.
-   (Esto habilita el botón “Continue with GitHub” en el panel.)
+### Paso 3 — Levantar el proxy en tu servidor
 
-2. En GitHub, entrá al repo **webbotar/mamapetshop** → **Settings → Collaborators → Add people** y agregá a quien vaya a cargar productos, con rol **Write** (o Maintain).
-   - Sin este paso, el panel te deja entrar pero no puede guardar cambios.
+```bash
+# 1. Subir el código (desde la carpeta del proyecto)
+./deploy.sh                       # sincroniza src/, public/, proxy/ al servidor
 
-3. Probá: **https://mamapetshop.netlify.app/admin/** → *Continue with GitHub* → elegí tu cuenta → se abre el panel.
+# 2. En el servidor: configurar
+cd ~/otra_tienda
+cp proxy/.env.example proxy/.env
+nano proxy/.env                   # completar CLIENT_ID, CLIENT_SECRET, BASE_URL, ALLOWED_ORIGINS
 
-### Paso 4 — Imágenes (opcional pero recomendado)
+# 3. Levantar
+./proxy.sh start
+./proxy.sh check                  # prueba /health y /auth
+```
+
+`proxy/.env` queda fuera del repo (está en `.gitignore`).
+
+### Paso 4 — Exponer el proxy con HTTPS
+
+El proxy tiene que ser alcanzable desde internet por HTTPS (GitHub redirige
+ahí el callback). Con un túnel de Cloudflare:
+
+```yaml
+# config del túnel (cloudflared)
+ingress:
+  - hostname: proxy.webbot.ar
+    service: http://localhost:8082
+  - hostname: mamapetshop.webbot.ar
+    service: http://localhost:4321
+```
+
+Creá el registro DNS `proxy.webbot.ar` apuntando al túnel.
+
+> **Alternativa sin DNS nuevo:** servir el proxy en el host que ya tenés y
+> enrutar por path. En `public/admin/config.yml` poné
+> `base_url: https://mamapetshop.webbot.ar` y en el túnel:
+> ```yaml
+>   - hostname: mamapetshop.webbot.ar
+>     path: ^/auth(/.*)?$
+>     service: http://localhost:8082
+> ```
+
+### Paso 5 — Apuntar el panel al proxy
+
+En `public/admin/config.yml`:
+
+```yaml
+backend:
+  name: github
+  repo: manapets/manapets.github.io
+  branch: main
+  base_url: https://proxy.webbot.ar
+  auth_endpoint: auth
+```
+
+`base_url` tiene que ser **exactamente** el origen público del proxy, sin barra
+final. La Redirect URI de la OAuth App es `<base_url>/auth/callback`.
+
+Volvé a subir el sitio (`git push`) y probá en **modo incógnito**:
+`https://manapets.github.io/admin`.
+
+### Errores frecuentes
+
+| Síntoma | Causa |
+|---|---|
+| Pantalla en blanco, sin errores | El `<script>` de Decap está en el `<head>`. Va al final del `<body>`. |
+| "Failed to load config.yml (404)" | Falta el `<link rel="cms-config-url">` con ruta **absoluta** (`/admin/config.yml`). |
+| El popup de login se abre en `api.netlify.com` | Falta `base_url` / `auth_endpoint` en el `backend`. |
+| El popup se abre en `https://api.github.com/https://github.com/...` | `auth_endpoint` no es un path, es una URL. Sólo `auth`. |
+| "Origen del panel no permitido" | `ALLOWED_ORIGINS` en `proxy/.env` no coincide con el origen del panel. |
+| 404 al volver de GitHub | La Redirect URI de la OAuth App no es `<base_url>/auth/callback`. |
+
+### Paso 6 — Imágenes (opcional pero recomendado)
 
 Por defecto las fotos se guardan dentro del repositorio, en `public/images/uploads/`.
 Funciona, pero un catálogo grande infla el repositorio.
@@ -104,21 +181,24 @@ optimizadas:
 - **WhatsApp:** Ajustes de la tienda → *WhatsApp* (solo números, sin `+` ni espacios).
 - **Borrar:** cada entrada tiene *Delete* (queda en el historial de Git y se puede recuperar).
 
-Los cambios tardan **~40 segundos** en verse (Netlify reconstruye el sitio).
+Los cambios tardan **~1 minuto** en verse (GitHub Actions reconstruye el sitio).
 
 ---
 
 ## 4. Detalles técnicos
 
 - **Motor:** [Decap CMS](https://decapcms.org) (`public/admin/index.html`), un panel
-  estático que se configura con `public/admin/config.yml` y se autentica con Netlify
-  Identity + Git Gateway. Como alternativa existe [Sveltia CMS](https://sveltiacms.app),
-  más moderno, pero **no soporta `git-gateway`**: exige el backend `github` y un proxy
-  OAuth propio.
+  estático que se configura con `public/admin/config.yml` y se autentica contra el
+  backend `github`. El login delega el canje del secret en `proxy/server.mjs`.
+  Como alternativa existe [Sveltia CMS](https://sveltiacms.app), más moderno, pero
+  necesita el mismo proxy OAuth.
+- **El `<script>` de Decap va al final del `<body>`:** Decap hace auto-init al
+  evaluarse y necesita que `document.body` ya exista. En el `<head>` la
+  inicialización revienta y la página queda en blanco **sin errores en la consola**.
 - **Validación:** los productos se validan con Zod al compilar
   (`src/lib/product-schema.ts`) y los ajustes con `src/lib/store-schema.ts`
   (test en `src/lib/store-schema.test.ts`). Si algo queda mal, el build falla y el
-  sitio no se rompe: Netlify conserva la última versión publicada.
+  sitio no se rompe: GitHub Pages conserva la última versión publicada.
 - **Campos vacíos:** el panel guarda los vacíos como `""`, `null` o `[]`; el sitio los
   interpreta como «sin valor» antes de validar (`pruneEmpty` en `src/content.config.ts`).
 - **Rama:** `main`. Si preferís revisar los cambios antes de publicar, descomentá
@@ -133,6 +213,6 @@ Los cambios tardan **~40 segundos** en verse (Netlify reconstruye el sitio).
 - **Los pedidos no se guardan** (el carrito vive en el navegador y el pedido se manda
   por WhatsApp).
 - **El stock no se descuenta solo** al vender.
-- **Los cambios no son instantáneos**: hay que esperar el rebuild de Netlify.
+- **Los cambios no son instantáneos**: hay que esperar el rebuild de GitHub Pages (~1 min).
 
 Eso requiere un backend real (base de datos + API), que es otro proyecto.

@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "token": "node scripts/check-token.mjs",
+    "check:links": "node scripts/check-links.mjs",
     "placeholders": "node scripts/gen-placeholders.mjs"
   },
   "dependencies": {

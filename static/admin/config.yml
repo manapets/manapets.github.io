@@ -2,6 +2,9 @@ backend:
   name: github
   repo: manapets/manapets.github.io
   branch: main
+  base_url: https://api.github.com
+  auth_endpoint: https://github.com/login/oauth/authorize
+  client_id: Ov23liVO71uESGzIm7zn
 
 media_folder: "public/uploads"
 public_folder: "/uploads"

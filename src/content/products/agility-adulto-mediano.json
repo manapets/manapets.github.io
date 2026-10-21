@@ -3,34 +3,34 @@
   "description": "Balanceado completo y equilibrado para perros adultos.",
   "longDescription": "Agility Adulto Mediano. Retiro sin cargo en nuestro depósito de Guaymallén y envío coordinado por WhatsApp a todo Gran Mendoza.\n\n- Relación precio-calidad imbatible\n- Con vitaminas y minerales\n- Soja, carne y cereales\n\nAnte cualquier duda escribinos por WhatsApp y te asesoramos con un humano de verdad.",
   "price": 25000,
+  "compareAtPrice": 29000,
   "category": "Alimentos Secos",
   "brand": "Agility",
   "species": "perro",
   "foodType": "seco",
+  "variants": [
+    {
+      "label": "3kg",
+      "price": 25000,
+      "compareAtPrice": 29000,
+      "stock": 25
+    },
+    {
+      "label": "15kg",
+      "price": 98000,
+      "compareAtPrice": 115000,
+      "stock": 4,
+      "bonusKg": 2
+    }
+  ],
   "images": [
-    "/images/products/agility-adulto-mediano-1.svg",
+    "/images/uploads/Screenshot_2026-10-21_14-45-06.png",
     "/images/products/agility-adulto-mediano-2.svg",
-    "/images/products/agility-adulto-mediano-3.svg"
+    "/images/uploads/Screenshot_2026-10-21_14-45-47.png"
   ],
   "featured": true,
   "inStock": true,
   "tags": [
     "top-ventas"
-  ],
-  "compareAtPrice": 29000,
-  "variants": [
-    {
-      "label": "3kg",
-      "price": 25000,
-      "stock": 25,
-      "compareAtPrice": 29000
-    },
-    {
-      "label": "15kg",
-      "price": 98000,
-      "stock": 4,
-      "compareAtPrice": 115000,
-      "bonusKg": 2
-    }
   ]
 }

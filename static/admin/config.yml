@@ -51,3 +51,6 @@ collections:
       - {label: "Fecha inicio", name: "inicio", widget: "datetime"}
       - {label: "Fecha fin", name: "fin", widget: "datetime"}
       - {label: "Productos incluidos (slugs)", name: "productos", widget: "list", field: {label: "Slug del producto", name: "slug", widget: "string"}}
+
+
+

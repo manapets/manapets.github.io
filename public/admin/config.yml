@@ -284,7 +284,7 @@ collections:
           - label: WhatsApp
             name: whatsappPhone
             widget: string
-            hint: "Código de país + área + número, SIN '+', espacios ni guiones. Ej: 5492615555555"
+            hint: "Código de país + área + número, SIN '+', espacios ni guiones. Ej: +5492616964649"
           - label: Saludo del mensaje de WhatsApp
             name: whatsappGreeting
             widget: string

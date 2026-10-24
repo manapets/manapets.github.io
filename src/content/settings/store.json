@@ -16,7 +16,7 @@
   "reintegroRate": 0.05,
   "discountCodes": [
     {
-      "code": "PLUSPET10",
+      "code": "MAMAPETS100",
       "rate": 0.1
     }
   ]

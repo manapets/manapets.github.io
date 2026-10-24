@@ -18,6 +18,12 @@
     {
       "code": "MAMAPETS100",
       "rate": 0.1
+    },
+    {
+      "code": "PLUSPET10",
+      "rate": 0.1
     }
-  ]
+  ],
+  "instagram": "",
+  "facebook": ""
 }

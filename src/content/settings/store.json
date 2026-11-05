@@ -16,14 +16,12 @@
   "reintegroRate": 0.05,
   "discountCodes": [
     {
-      "code": "MAMAPETS100",
+      "code": "MANAPETS10",
       "rate": 0.1
     },
     {
-      "code": "PLUSPET10",
+      "code": "BIENVENIDO",
       "rate": 0.1
     }
-  ],
-  "instagram": "",
-  "facebook": ""
+  ]
 }
